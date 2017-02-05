@@ -87,6 +87,16 @@
             <Form>Cliente_Principal</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="UnitMetodos.pas"/>
+        <DCCReference Include="UnitDm.pas">
+            <Form>Dm</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="UnitForm_Padrao.pas">
+            <Form>Frm_Padro</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <DCCReference Include="UnitCad_Estado.pas">
             <Form>Cad_Estado</Form>
             <FormType>dfm</FormType>
@@ -94,12 +104,6 @@
         <DCCReference Include="UnitCad_Cidade.pas">
             <Form>Cad_Cidade</Form>
             <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="UnitMetodos.pas"/>
-        <DCCReference Include="UnitDm.pas">
-            <Form>Dm</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

@@ -1,0 +1,21 @@
+program Cliente;
+
+uses
+  Vcl.Forms,
+  UnitCliente_Principal in 'UnitCliente_Principal.pas' {Cliente_Principal},
+  UnitMetodos in 'UnitMetodos.pas',
+  UnitDm in 'UnitDm.pas' {Dm: TDataModule},
+  UnitForm_Padrao in 'UnitForm_Padrao.pas' {Frm_Padro},
+  UnitCad_Estado in 'UnitCad_Estado.pas' {Frm_Padro1};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TCliente_Principal, Cliente_Principal);
+  Application.CreateForm(TDm, Dm);
+  Application.CreateForm(TFrm_Padro, Frm_Padro);
+  Application.CreateForm(TFrm_Padro1, Frm_Padro1);
+  Application.Run;
+end.

@@ -1,0 +1,145 @@
+unit UnitForm_Padrao;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.ComCtrls,
+  System.Actions, Vcl.ActnList, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Mask,
+  Vcl.DBCtrls, UnitDm;
+
+type
+  TFrm_Padro = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    pageControl: TPageControl;
+    Dados: TTabSheet;
+    tbPesquisa: TTabSheet;
+    ActionList1: TActionList;
+    ActPesquisar: TAction;
+    ActSalvar: TAction;
+    ActInserir: TAction;
+    ActAlterar: TAction;
+    ActExcluir: TAction;
+    ActCancelar: TAction;
+    ActSair: TAction;
+    Panel3: TPanel;
+    edtPesquisa: TEdit;
+    Label1: TLabel;
+    DBGrid1: TDBGrid;
+    Button1: TButton;
+    Label2: TLabel;
+    edtCod: TDBEdit;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
+    Button6: TButton;
+    Button7: TButton;
+    procedure ActSairExecute(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure ActInserirExecute(Sender: TObject);
+    procedure ActSalvarExecute(Sender: TObject);
+    procedure ActAlterarExecute(Sender: TObject);
+    procedure ActExcluirExecute(Sender: TObject);
+    procedure ActCancelarExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+  private
+    FTipoAcao : String;
+    procedure TratarBotoes;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Frm_Padro: TFrm_Padro;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrm_Padro.ActAlterarExecute(Sender: TObject);
+begin
+  FTipoAcao := 'alterando';
+  TratarBotoes;
+  pageControl.TabIndex := 0;
+end;
+
+procedure TFrm_Padro.ActCancelarExecute(Sender: TObject);
+begin
+  FTipoAcao := 'preenchido';
+  TratarBotoes;
+end;
+
+procedure TFrm_Padro.ActExcluirExecute(Sender: TObject);
+begin
+  FTipoAcao := 'vazio';
+  TratarBotoes;
+  pageControl.TabIndex := 1;
+end;
+
+procedure TFrm_Padro.ActInserirExecute(Sender: TObject);
+begin
+  FTipoAcao := 'incluindo';
+  TratarBotoes;
+  pageControl.TabIndex := 0;
+end;
+
+procedure TFrm_Padro.ActSairExecute(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFrm_Padro.ActSalvarExecute(Sender: TObject);
+begin
+  FTipoAcao := 'preenchido';
+  TratarBotoes;
+  pageControl.TabIndex := 1;
+end;
+
+procedure TFrm_Padro.FormCreate(Sender: TObject);
+begin
+  FTipoAcao := 'vazio';
+  TratarBotoes;
+end;
+
+procedure TFrm_Padro.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = Vk_Escape) then
+    Close;
+end;
+
+procedure TFrm_Padro.TratarBotoes;
+begin
+  if (FTipoAcao = 'incluindo') or (FTipoAcao = 'alterando') then
+    begin
+      ActSalvar.Enabled := True;
+      ActCancelar.Enabled := True;
+      ActExcluir.Enabled := False;
+      ActAlterar.Enabled :=  False;
+      ActSair.Enabled := False;
+      ActInserir.Enabled := False;
+
+    end
+  else if FTipoAcao = 'vazio' then
+    begin
+      ActSalvar.Enabled := False;
+      ActCancelar.Enabled := False;
+      ActExcluir.Enabled := True;
+      ActAlterar.Enabled :=  True;
+      ActSair.Enabled := True;
+      ActInserir.Enabled := True;
+    end
+  else if FTipoAcao = 'preenchido' then
+    begin
+      ActSalvar.Enabled := False;
+      ActCancelar.Enabled := False;
+      ActExcluir.Enabled := True;
+      ActAlterar.Enabled :=  True;
+      ActSair.Enabled := True;
+      ActInserir.Enabled := True;
+    end;
+end;
+end.

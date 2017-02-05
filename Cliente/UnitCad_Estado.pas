@@ -4,68 +4,36 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
-  System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, Data.DB,
-  Datasnap.DBClient, Datasnap.DSConnect, Data.SqlExpr, Data.DBXDataSnap,
-  IPPeerClient, Data.DBXCommon, UnitCliente_Principal, UnitMetodos, Vcl.Mask,
-  Vcl.DBCtrls, UnitDm;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UnitForm_Padrao, System.Actions,
+  Vcl.ActnList, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
+  Vcl.ComCtrls, Vcl.ExtCtrls, UnitDm, UnitMetodos;
 
 type
-  TCad_Estado = class(TForm)
-    Panel1: TPanel;
-    Panel2: TPanel;
-    Button1: TButton;
-    Button2: TButton;
-    ActiEstado: TActionList;
-    ActIncluir: TAction;
-    ActAlterar: TAction;
-    ActExcluir: TAction;
-    ActSair: TAction;
-    Button3: TButton;
-    Button4: TButton;
-    PageControl1: TPageControl;
-    TabSheet1: TTabSheet;
-    TabSheet2: TTabSheet;
-    Panel3: TPanel;
-    edtPesquisa: TEdit;
-    Label1: TLabel;
-    Button5: TButton;
-    ActPesquisa: TAction;
-    DBGrid1: TDBGrid;
-    Label2: TLabel;
-    edtCod: TDBEdit;
+  TCad_Estado = class(TFrm_Padro)
     Label3: TLabel;
     Label4: TLabel;
-    edtIBGE: TDBEdit;
     Label5: TLabel;
-    edtNome: TDBEdit;
     Label6: TLabel;
-    edtSigla: TDBEdit;
-    ActSalvar: TAction;
-    Button6: TButton;
-    ActCancela: TAction;
-    Button7: TButton;
     edtPais: TDBLookupComboBox;
-    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure ActPesquisaExecute(Sender: TObject);
-    procedure ActSairExecute(Sender: TObject);
+    edtIBGE: TDBEdit;
+    edtNome: TDBEdit;
+    edtSigla: TDBEdit;
+    procedure ActPesquisarExecute(Sender: TObject);
+    procedure ActInserirExecute(Sender: TObject);
     procedure ActExcluirExecute(Sender: TObject);
-    procedure DS_EstadoDataChange(Sender: TObject; Field: TField);
     procedure ActAlterarExecute(Sender: TObject);
-    procedure ActIncluirExecute(Sender: TObject);
-    procedure ActSalvarExecute(Sender: TObject);
-    procedure ActCancelaExecute(Sender: TObject);
+    procedure ActCancelarExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ActSalvarExecute(Sender: TObject);
   private
-    procedure Filtrar;
-    procedure BuscarTodos;
-    procedure HabilitarEdicao;
     procedure DesabilitarEdicao;
+    procedure HabilitarEdicao;
+    procedure BuscarTodos;
+    procedure Filtrar;
     { Private declarations }
   public
     { Public declarations }
-
   end;
 
 var
@@ -74,26 +42,6 @@ var
 implementation
 
 {$R *.dfm}
-
-
-procedure TCad_Estado.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  DesabilitarEdicao;
-  Dm.CDS_Estado.Close;
-end;
-
-procedure TCad_Estado.FormKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-  if (Key = Vk_Escape) then
-    Close;
-end;
-
-procedure TCad_Estado.FormShow(Sender: TObject);
-begin
-  Dm.CDS_Estado.Open;
-  Dm.CDS_Pais.Open;
-end;
 
 procedure TCad_Estado.Filtrar;
 begin
@@ -112,19 +60,32 @@ begin
     end;
 end;
 
+procedure TCad_Estado.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  DesabilitarEdicao;
+  Dm.CDS_Estado.Close;
+end;
+
+procedure TCad_Estado.FormShow(Sender: TObject);
+begin
+  inherited;
+  Dm.CDS_Estado.Open;
+  Dm.CDS_Pais.Open;
+end;
+
 procedure TCad_Estado.ActAlterarExecute(Sender: TObject);
 begin
+  inherited;
   Dm.CDS_Estado.Edit;
-  PageControl1.TabIndex := 0;
-  ActSalvar.Enabled := True;
   HabilitarEdicao;
 end;
 
-procedure TCad_Estado.ActCancelaExecute(Sender: TObject);
+procedure TCad_Estado.ActCancelarExecute(Sender: TObject);
 begin
-  ActSalvar.Enabled := False;
-  PageControl1.TabIndex := 1;
+  inherited;
   DesabilitarEdicao;
+  BuscarTodos;
 end;
 
 procedure TCad_Estado.ActExcluirExecute(Sender: TObject);
@@ -144,48 +105,43 @@ begin
   finally
     FreeAndNil(conexao);
   end;
+  inherited;
 end;
 
-procedure TCad_Estado.ActIncluirExecute(Sender: TObject);
+procedure TCad_Estado.ActInserirExecute(Sender: TObject);
 begin
+  inherited;
   Dm.CDS_Estado.Append;
-  PageControl1.TabIndex := 0;
-  ActSalvar.Enabled := True;
   HabilitarEdicao;
 end;
 
-procedure TCad_Estado.ActPesquisaExecute(Sender: TObject);
+procedure TCad_Estado.ActPesquisarExecute(Sender: TObject);
 begin
+  inherited;
   Filtrar;
-end;
-
-procedure TCad_Estado.ActSairExecute(Sender: TObject);
-begin
-  Close;
 end;
 
 procedure TCad_Estado.ActSalvarExecute(Sender: TObject);
 var
   conexao : TServidor_Principal_MetodosClient;
 begin
- conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
- try
-  if not(Dm.CDS_Estadocod_estado.AsInteger > 0) then
-    begin
-      conexao.InserirEstado(Dm.CDS_Estadocod_pais.AsInteger, Dm.CDS_Estadonome_estado.AsString, Dm.CDS_Estadosigla_estado.AsString, Dm.CDS_Estadocodigo_ibge.AsInteger);
-    end
-  else
-    begin
-      conexao.alterarEstado(Dm.CDS_Estadocod_estado.AsInteger,
-      Dm.CDS_Estadocod_pais.AsInteger, Dm.CDS_Estadonome_estado.AsString, Dm.CDS_Estadosigla_estado.AsString, Dm.CDS_Estadocodigo_ibge.AsInteger);
-    end;
- finally
-   FreeAndNil(conexao);
-   BuscarTodos;
-   PageControl1.TabIndex := 1;
-   ActSalvar.Enabled := False;
-   DesabilitarEdicao;
- end;
+  conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
+   try
+    if not(Dm.CDS_Estadocod_estado.AsInteger > 0) then
+      begin
+        conexao.InserirEstado(Dm.CDS_Estadocod_pais.AsInteger, Dm.CDS_Estadonome_estado.AsString, Dm.CDS_Estadosigla_estado.AsString, Dm.CDS_Estadocodigo_ibge.AsInteger);
+      end
+    else
+      begin
+        conexao.alterarEstado(Dm.CDS_Estadocod_estado.AsInteger,
+        Dm.CDS_Estadocod_pais.AsInteger, Dm.CDS_Estadonome_estado.AsString, Dm.CDS_Estadosigla_estado.AsString, Dm.CDS_Estadocodigo_ibge.AsInteger);
+      end;
+   finally
+     FreeAndNil(conexao);
+     BuscarTodos;
+     DesabilitarEdicao;
+   end;
+  inherited;
 end;
 
 procedure TCad_Estado.BuscarTodos;
@@ -201,11 +157,6 @@ begin
   finally
     FreeAndNil(conexao);
   end;
-end;
-procedure TCad_Estado.DS_EstadoDataChange(Sender: TObject; Field: TField);
-begin
-    ActAlterar.Enabled := not(Dm.CDS_Estado.IsEmpty);
-    ActExcluir.Enabled := not(Dm.CDS_Estado.IsEmpty);
 end;
 
 procedure TCad_Estado.HabilitarEdicao;

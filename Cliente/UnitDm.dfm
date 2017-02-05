@@ -70,21 +70,26 @@ object Dm: TDm
     Left = 293
     Top = 24
     object CDS_Cidadecod_cidade: TAutoIncField
+      DisplayLabel = 'Cod'
       FieldName = 'cod_cidade'
       ReadOnly = True
     end
     object CDS_Cidadecod_estado: TLongWordField
+      DisplayLabel = 'Estado'
       FieldName = 'cod_estado'
     end
     object CDS_Cidadenome_cidade: TStringField
+      DisplayLabel = 'Nome'
       FieldName = 'nome_cidade'
       Required = True
       Size = 30
     end
     object CDS_Cidadecod_cidade_ibge: TIntegerField
+      DisplayLabel = 'IBGE'
       FieldName = 'cod_cidade_ibge'
     end
     object CDS_Cidadecodigo_localidade_anp: TIntegerField
+      DisplayLabel = 'Localidade ANP'
       FieldName = 'codigo_localidade_anp'
     end
   end

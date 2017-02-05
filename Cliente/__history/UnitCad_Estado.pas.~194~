@@ -1,0 +1,179 @@
+unit UnitCad_Estado;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UnitForm_Padrao, System.Actions,
+  Vcl.ActnList, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
+  Vcl.ComCtrls, Vcl.ExtCtrls, UnitDm, UnitMetodos;
+
+type
+  TCad_Estado = class(TFrm_Padro)
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    edtPais: TDBLookupComboBox;
+    edtIBGE: TDBEdit;
+    edtNome: TDBEdit;
+    edtSigla: TDBEdit;
+    procedure ActPesquisarExecute(Sender: TObject);
+    procedure ActInserirExecute(Sender: TObject);
+    procedure ActExcluirExecute(Sender: TObject);
+    procedure ActAlterarExecute(Sender: TObject);
+    procedure ActCancelarExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ActSalvarExecute(Sender: TObject);
+  private
+    procedure DesabilitarEdicao;
+    procedure HabilitarEdicao;
+    procedure BuscarTodos;
+    procedure Filtrar;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Cad_Estado: TCad_Estado;
+
+implementation
+
+{$R *.dfm}
+
+procedure TCad_Estado.Filtrar;
+begin
+  with Dm.CDS_Estado do
+    begin
+      if edtPesquisa.Text <> '' then
+        begin
+          Close;
+          Filtered := False;
+          Filter := ' UPPER(nome_estado) LIKE '+QuotedStr('%'+edtPesquisa.Text+'%');
+          Filtered := True;
+          Open;
+        end
+      else
+       Filtered := False;
+    end;
+end;
+
+procedure TCad_Estado.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  DesabilitarEdicao;
+  Dm.CDS_Estado.Close;
+end;
+
+procedure TCad_Estado.FormShow(Sender: TObject);
+begin
+  inherited;
+  Dm.CDS_Estado.Open;
+  Dm.CDS_Pais.Open;
+end;
+
+procedure TCad_Estado.ActAlterarExecute(Sender: TObject);
+begin
+  inherited;
+  Dm.CDS_Estado.Edit;
+  ActSalvar.Enabled := True;
+  HabilitarEdicao;
+end;
+
+procedure TCad_Estado.ActCancelarExecute(Sender: TObject);
+begin
+  inherited;
+  ActSalvar.Enabled := False;
+  DesabilitarEdicao;
+end;
+
+procedure TCad_Estado.ActExcluirExecute(Sender: TObject);
+var
+  conexao : TServidor_Principal_MetodosClient;
+begin
+  conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
+  try
+    if Dm.CDS_Estadocod_estado.AsInteger > 0 then
+      begin
+        if MessageDlg('Deseja mesmo excluir o Estado '+Dm.CDS_Estadonome_estado.AsString+'?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+          begin
+            conexao.ExcluirEstado(Dm.CDS_Estadocod_estado.AsInteger);
+            BuscarTodos;
+          end;
+      end;
+  finally
+    FreeAndNil(conexao);
+  end;
+  inherited;
+end;
+
+procedure TCad_Estado.ActInserirExecute(Sender: TObject);
+begin
+  inherited;
+  Dm.CDS_Estado.Append;
+  HabilitarEdicao;
+end;
+
+procedure TCad_Estado.ActPesquisarExecute(Sender: TObject);
+begin
+  inherited;
+  Filtrar;
+end;
+
+procedure TCad_Estado.ActSalvarExecute(Sender: TObject);
+var
+  conexao : TServidor_Principal_MetodosClient;
+begin
+  conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
+   try
+    if not(Dm.CDS_Estadocod_estado.AsInteger > 0) then
+      begin
+        conexao.InserirEstado(Dm.CDS_Estadocod_pais.AsInteger, Dm.CDS_Estadonome_estado.AsString, Dm.CDS_Estadosigla_estado.AsString, Dm.CDS_Estadocodigo_ibge.AsInteger);
+      end
+    else
+      begin
+        conexao.alterarEstado(Dm.CDS_Estadocod_estado.AsInteger,
+        Dm.CDS_Estadocod_pais.AsInteger, Dm.CDS_Estadonome_estado.AsString, Dm.CDS_Estadosigla_estado.AsString, Dm.CDS_Estadocodigo_ibge.AsInteger);
+      end;
+   finally
+     FreeAndNil(conexao);
+     BuscarTodos;
+     ActSalvar.Enabled := False;
+     DesabilitarEdicao;
+   end;
+  inherited;
+end;
+
+procedure TCad_Estado.BuscarTodos;
+var
+  conexao : TServidor_Principal_MetodosClient;
+begin
+  conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
+  try
+    Dm.CDS_Estado.Close;
+    conexao.ListarEstado;
+    Dm.CDS_Estado.Open;
+    Dm.CDS_Estado.Refresh;
+  finally
+    FreeAndNil(conexao);
+  end;
+end;
+
+procedure TCad_Estado.HabilitarEdicao;
+begin
+  edtPais.Enabled  := True;
+  edtIBGE.Enabled  := True;
+  edtSigla.Enabled := True;
+  edtNome.Enabled  := True;
+end;
+
+procedure TCad_Estado.DesabilitarEdicao;
+begin
+  edtPais.Enabled  := False;
+  edtIBGE.Enabled  := False;
+  edtSigla.Enabled := False;
+  edtNome.Enabled  := False;
+end;
+end.
