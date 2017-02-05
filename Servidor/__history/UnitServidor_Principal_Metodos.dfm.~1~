@@ -1,0 +1,5 @@
+object Servidor_Principal_Metodos: TServidor_Principal_Metodos
+  OldCreateOrder = False
+  Height = 380
+  Width = 450
+end

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2017/02/04 18:38:32.000.123,=C:\Users\maria\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/02/04 19:17:06.000.361,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCliente_Principal.pas=C:\Users\maria\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/02/04 19:17:06.000.361,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCliente_Principal.dfm=C:\Users\maria\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2017/02/04 19:17:17.000.703,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Cliente.dproj=C:\Users\maria\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2017/02/04 19:48:50.000.308,=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
+    <Transaction>2017/02/04 19:53:51.000.045,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.dfm=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCad_Estado.dfm</Transaction>
+    <Transaction>2017/02/04 19:53:51.000.045,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCad_Estado.pas</Transaction>
+    <Transaction>2017/02/04 20:27:41.000.332,=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
+    <Transaction>2017/02/04 20:28:02.000.820,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCad_Cidade.pas</Transaction>
+    <Transaction>2017/02/04 20:28:02.000.820,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.dfm=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCad_Cidade.dfm</Transaction>
+  </Transactions>
+</BorlandProject>
