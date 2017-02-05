@@ -9,6 +9,7 @@ object Frm_Padro: TFrm_Padro
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   WindowState = wsMaximized
   OnCreate = FormCreate
@@ -161,6 +162,7 @@ object Frm_Padro: TFrm_Padro
           Width = 583
           Height = 393
           Align = alClient
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 1
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText

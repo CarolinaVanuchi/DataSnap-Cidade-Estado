@@ -9,7 +9,11 @@ object Frm_Padro: TFrm_Padro
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
+  WindowState = wsMaximized
+  OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -20,10 +24,6 @@ object Frm_Padro: TFrm_Padro
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = 240
-    ExplicitTop = 160
-    ExplicitWidth = 185
-    ExplicitHeight = 41
     object Panel2: TPanel
       Left = 0
       Top = 0
@@ -32,7 +32,6 @@ object Frm_Padro: TFrm_Padro
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitLeft = -2
       object Button2: TButton
         Left = 0
         Top = 421
@@ -43,17 +42,71 @@ object Frm_Padro: TFrm_Padro
         Style = bsCommandLink
         TabOrder = 0
       end
+      object Button3: TButton
+        Left = 0
+        Top = 0
+        Width = 105
+        Height = 41
+        Action = ActInserir
+        Align = alTop
+        Style = bsCommandLink
+        TabOrder = 1
+      end
+      object Button4: TButton
+        Left = 0
+        Top = 41
+        Width = 105
+        Height = 41
+        Action = ActAlterar
+        Align = alTop
+        Style = bsCommandLink
+        TabOrder = 2
+      end
+      object Button5: TButton
+        Left = 0
+        Top = 82
+        Width = 105
+        Height = 41
+        Action = ActExcluir
+        Align = alTop
+        Style = bsCommandLink
+        TabOrder = 3
+      end
+      object Button6: TButton
+        Left = 0
+        Top = 123
+        Width = 105
+        Height = 41
+        Action = ActSalvar
+        Align = alTop
+        Style = bsCommandLink
+        TabOrder = 4
+      end
+      object Button7: TButton
+        Left = 0
+        Top = 164
+        Width = 105
+        Height = 41
+        Action = ActCancelar
+        Align = alTop
+        Style = bsCommandLink
+        TabOrder = 5
+      end
     end
-    object tpDados: TPageControl
+    object pageControl: TPageControl
       Left = 105
       Top = 0
       Width = 591
       Height = 462
-      ActivePage = Dados
+      ActivePage = tbPesquisa
       Align = alClient
       TabOrder = 1
       object Dados: TTabSheet
         Caption = 'Dados'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Label2: TLabel
           Left = 8
           Top = 16
@@ -82,9 +135,6 @@ object Frm_Padro: TFrm_Padro
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitLeft = 104
-          ExplicitTop = 40
-          ExplicitWidth = 185
           object Label1: TLabel
             Left = 2
             Top = 0
@@ -97,6 +147,7 @@ object Frm_Padro: TFrm_Padro
             Top = 16
             Width = 399
             Height = 21
+            CharCase = ecUpperCase
             TabOrder = 0
           end
           object Button1: TButton
@@ -133,21 +184,27 @@ object Frm_Padro: TFrm_Padro
     end
     object ActSalvar: TAction
       Caption = 'Salvar'
+      OnExecute = ActSalvarExecute
     end
     object ActInserir: TAction
       Caption = 'Inserir'
+      OnExecute = ActInserirExecute
     end
     object ActAlterar: TAction
       Caption = 'Alterar'
+      OnExecute = ActAlterarExecute
     end
     object ActExcluir: TAction
       Caption = 'Excluir'
+      OnExecute = ActExcluirExecute
     end
     object ActCancelar: TAction
       Caption = 'Cancelar'
+      OnExecute = ActCancelarExecute
     end
     object ActSair: TAction
       Caption = 'Sair'
+      OnExecute = ActSairExecute
     end
   end
 end

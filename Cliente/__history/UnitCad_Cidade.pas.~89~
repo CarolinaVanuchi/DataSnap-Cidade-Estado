@@ -20,6 +20,13 @@ type
     edtNome: TDBEdit;
     procedure ActSalvarExecute(Sender: TObject);
     procedure ActPesquisarExecute(Sender: TObject);
+    procedure ActInserirExecute(Sender: TObject);
+    procedure ActExcluirExecute(Sender: TObject);
+    procedure ActCancelarExecute(Sender: TObject);
+    procedure ActAlterarExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     procedure DesabilitarEdicao;
     procedure HabilitarEdicao;
@@ -52,6 +59,69 @@ begin
       else
        Filtered := False;
     end;
+end;
+
+procedure TCad_Cidade.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  DesabilitarEdicao;
+  Dm.CDS_Cidade.Close;
+  Dm.CDS_Estado.Close;
+end;
+
+procedure TCad_Cidade.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  //
+end;
+
+procedure TCad_Cidade.FormShow(Sender: TObject);
+begin
+  inherited;
+   Dm.CDS_Cidade.Open;
+   Dm.CDS_Estado.Open;
+end;
+
+procedure TCad_Cidade.ActAlterarExecute(Sender: TObject);
+begin
+  inherited;
+  Dm.CDS_Cidade.Edit;
+  HabilitarEdicao;
+end;
+
+procedure TCad_Cidade.ActCancelarExecute(Sender: TObject);
+begin
+  inherited;
+  DesabilitarEdicao;
+  BuscarTodos;
+end;
+
+procedure TCad_Cidade.ActExcluirExecute(Sender: TObject);
+var
+  conexao : TServidor_Principal_MetodosClient;
+begin
+  conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
+  try
+    if Dm.CDS_Cidadecod_cidade.AsInteger > 0 then
+      begin
+        if MessageDlg('Deseja mesmo excluir o Estado '+Dm.CDS_Cidadenome_cidade.AsString+'?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+          begin
+            conexao.ExcluirCidade(Dm.CDS_Cidadecod_cidade.AsInteger);
+            BuscarTodos;
+          end;
+      end;
+  finally
+    FreeAndNil(conexao);
+  end;
+  inherited;
+end;
+
+procedure TCad_Cidade.ActInserirExecute(Sender: TObject);
+begin
+  inherited;
+  Dm.CDS_Cidade.Append;
+  HabilitarEdicao;
 end;
 
 procedure TCad_Cidade.ActPesquisarExecute(Sender: TObject);
@@ -101,7 +171,7 @@ end;
 
 procedure TCad_Cidade.HabilitarEdicao;
 begin
-  edtCod.Enabled      := True;
+  edtCod.Enabled         := True;
   edtEstado.Enabled      := True;
   edtIBGE.Enabled        := True;
   edtLocalidade.Enabled  := True;
@@ -110,7 +180,7 @@ end;
 
 procedure TCad_Cidade.DesabilitarEdicao;
 begin
-  edtCod.Enabled      := False;
+  edtCod.Enabled         := False;
   edtEstado.Enabled      := False;
   edtIBGE.Enabled        := False;
   edtLocalidade.Enabled  := False;
