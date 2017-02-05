@@ -19,12 +19,15 @@ type
     Q_Cidade: TFDQuery;
     DSP_Estado: TDataSetProvider;
     DSP_Cidade: TDataSetProvider;
+    procedure DSP_EstadoBeforeGetRecords(Sender: TObject;
+      var OwnerData: OleVariant);
+    procedure DSP_CidadeBeforeGetRecords(Sender: TObject;
+      var OwnerData: OleVariant);
   private
     { Private declarations }
   public
     { Public declarations }
-    function EchoString(Value: string): string;
-    function ReverseString(Value: string): string;
+    procedure ListarTodos;
   end;
 
 implementation
@@ -35,15 +38,25 @@ implementation
 
 uses System.StrUtils;
 
-function TServidor_Principal_Metodos.EchoString(Value: string): string;
+procedure TServidor_Principal_Metodos.DSP_CidadeBeforeGetRecords(
+  Sender: TObject; var OwnerData: OleVariant);
 begin
-  Result := Value;
+  //
 end;
 
-function TServidor_Principal_Metodos.ReverseString(Value: string): string;
+procedure TServidor_Principal_Metodos.DSP_EstadoBeforeGetRecords(
+  Sender: TObject; var OwnerData: OleVariant);
 begin
-  Result := System.StrUtils.ReverseString(Value);
+  //
 end;
 
+procedure TServidor_Principal_Metodos.ListarTodos;
+begin
+  Q_Estado.Close;
+  Q_Estado.SQL.Clear;
+  Q_Estado.SQL.Add('select * from tab_estado');
+  Q_Estado.Open;
+  Q_Estado.Refresh;
+end;
 end.
 

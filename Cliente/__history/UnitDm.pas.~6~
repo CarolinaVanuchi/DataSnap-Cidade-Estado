@@ -1,0 +1,32 @@
+unit UnitDm;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DBXDataSnap, IPPeerClient,
+  Data.DBXCommon, Datasnap.DBClient, Datasnap.DSConnect, Data.DB, Data.SqlExpr;
+
+type
+  TDm = class(TDataModule)
+    SQLConnection1: TSQLConnection;
+    DSProviderConnection1: TDSProviderConnection;
+    CDS_Estado: TClientDataSet;
+    DS_Estado: TDataSource;
+    CDS_Cidade: TClientDataSet;
+    DS_Cidade: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Dm: TDm;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

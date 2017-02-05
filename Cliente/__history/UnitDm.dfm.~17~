@@ -1,0 +1,92 @@
+object Dm: TDm
+  OldCreateOrder = False
+  Height = 292
+  Width = 427
+  object SQLConnection1: TSQLConnection
+    DriverName = 'DataSnap'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverUnit=Data.DBXDataSnap'
+      'HostName=localhost'
+      'Port=211'
+      'CommunicationProtocol=tcp/ip'
+      'DatasnapContext=datasnap/'
+      
+        'DriverAssemblyLoader=Borland.Data.TDBXClientDriverLoader,Borland' +
+        '.Data.DbxClientDriver,Version=21.0.0.0,Culture=neutral,PublicKey' +
+        'Token=91d62ebb5b0d1b1b')
+    Connected = True
+    Left = 48
+    Top = 24
+  end
+  object DSProviderConnection1: TDSProviderConnection
+    ServerClassName = 'TServidor_Principal_Metodos'
+    Connected = True
+    SQLConnection = SQLConnection1
+    Left = 56
+    Top = 88
+  end
+  object CDS_Estado: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSP_Estado'
+    RemoteServer = DSProviderConnection1
+    Left = 168
+    Top = 24
+    object CDS_Estadocod_estado: TAutoIncField
+      FieldName = 'cod_estado'
+      ReadOnly = True
+    end
+    object CDS_Estadocod_pais: TLongWordField
+      FieldName = 'cod_pais'
+    end
+    object CDS_Estadonome_estado: TStringField
+      FieldName = 'nome_estado'
+      Required = True
+    end
+    object CDS_Estadosigla_estado: TStringField
+      FieldName = 'sigla_estado'
+      FixedChar = True
+      Size = 2
+    end
+    object CDS_Estadocodigo_ibge: TIntegerField
+      FieldName = 'codigo_ibge'
+    end
+  end
+  object DS_Estado: TDataSource
+    DataSet = CDS_Estado
+    Left = 168
+    Top = 80
+  end
+  object CDS_Cidade: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSP_Cidade'
+    RemoteServer = DSProviderConnection1
+    Left = 264
+    Top = 24
+    object CDS_Cidadecod_cidade: TAutoIncField
+      FieldName = 'cod_cidade'
+      ReadOnly = True
+    end
+    object CDS_Cidadecod_estado: TLongWordField
+      FieldName = 'cod_estado'
+    end
+    object CDS_Cidadenome_cidade: TStringField
+      FieldName = 'nome_cidade'
+      Required = True
+      Size = 30
+    end
+    object CDS_Cidadecod_cidade_ibge: TIntegerField
+      FieldName = 'cod_cidade_ibge'
+    end
+    object CDS_Cidadecodigo_localidade_anp: TIntegerField
+      FieldName = 'codigo_localidade_anp'
+    end
+  end
+  object DS_Cidade: TDataSource
+    DataSet = CDS_Cidade
+    Left = 264
+    Top = 88
+  end
+end

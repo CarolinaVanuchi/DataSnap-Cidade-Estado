@@ -4,7 +4,8 @@ uses
   Vcl.Forms,
   UnitCliente_Principal in 'UnitCliente_Principal.pas' {Cliente_Principal},
   UnitCad_Estado in 'UnitCad_Estado.pas' {Cad_Estado},
-  UnitCad_Cidade in 'UnitCad_Cidade.pas' {Cad_Cidade};
+  UnitCad_Cidade in 'UnitCad_Cidade.pas' {Cad_Cidade},
+  UnitMetodos in 'UnitMetodos.pas';
 
 {$R *.res}
 

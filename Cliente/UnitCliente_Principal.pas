@@ -7,24 +7,23 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
   Data.DBXDataSnap, IPPeerClient, Data.DBXCommon, Datasnap.DBClient,
   Datasnap.DSConnect, Data.DB, Data.SqlExpr, System.Actions, Vcl.ActnList,
-  Vcl.ComCtrls, Vcl.ToolWin;
+  Vcl.ComCtrls, Vcl.ToolWin, UnitDm;
 
 type
   TCliente_Principal = class(TForm)
     Panel1: TPanel;
     ActConexao: TActionList;
-    SQLConnection1: TSQLConnection;
-    DSProviderConnection1: TDSProviderConnection;
     ActEstado: TAction;
     ActCidade: TAction;
     Panel2: TPanel;
     Button1: TButton;
     Button2: TButton;
+    SQLConnection1: TSQLConnection;
+    DSProviderConnection1: TDSProviderConnection;
     procedure FormCreate(Sender: TObject);
     procedure ActEstadoExecute(Sender: TObject);
     procedure ActCidadeExecute(Sender: TObject);
   private
-    procedure Conectar;
     { Private declarations }
   public
     { Public declarations }
@@ -59,13 +58,8 @@ begin
   end;
 end;
 
-procedure TCliente_Principal.Conectar;
+procedure TCliente_Principal.FormCreate(Sender: TObject);
 begin
   SQLConnection1.Connected := True;
 end;
-procedure TCliente_Principal.FormCreate(Sender: TObject);
-begin
-  Conectar;
-end;
-
 end.

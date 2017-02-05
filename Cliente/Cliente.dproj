@@ -95,6 +95,7 @@
             <Form>Cad_Cidade</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="UnitMetodos.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -458,6 +459,9 @@
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">False</Platform>
             </Platforms>
+            <DataSnapProxyLookup>
+                <UnitMetodos>{1BD55322-084A-4FC7-B19B-A9FE52F0907E}</UnitMetodos>
+            </DataSnapProxyLookup>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>

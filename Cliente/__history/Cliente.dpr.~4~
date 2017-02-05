@@ -1,0 +1,19 @@
+program Cliente;
+
+uses
+  Vcl.Forms,
+  UnitCliente_Principal in 'UnitCliente_Principal.pas' {Cliente_Principal},
+  UnitCad_Estado in 'UnitCad_Estado.pas' {Cad_Estado},
+  UnitCad_Cidade in 'UnitCad_Cidade.pas' {Cad_Cidade},
+  UnitMetodos_Cliente in 'UnitMetodos_Cliente.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TCliente_Principal, Cliente_Principal);
+  Application.CreateForm(TCad_Estado, Cad_Estado);
+  Application.CreateForm(TCad_Cidade, Cad_Cidade);
+  Application.Run;
+end.
