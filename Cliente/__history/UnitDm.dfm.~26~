@@ -1,0 +1,43 @@
+object Dm: TDm
+  OldCreateOrder = False
+  Height = 292
+  Width = 427
+  object CDS_Estado: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSP_Estado'
+    RemoteServer = Cliente_Principal.DSProviderConnection1
+    Left = 29
+    Top = 28
+    object CDS_Estadocod_estado: TAutoIncField
+      DisplayLabel = 'Cod'
+      FieldName = 'cod_estado'
+      ReadOnly = True
+    end
+    object CDS_Estadocod_pais: TLongWordField
+      DisplayLabel = 'Cod Pais'
+      FieldName = 'cod_pais'
+    end
+    object CDS_Estadonome_estado: TStringField
+      DisplayLabel = 'Nome'
+      FieldName = 'nome_estado'
+      Required = True
+      Size = 50
+    end
+    object CDS_Estadosigla_estado: TStringField
+      DisplayLabel = 'Sigla'
+      FieldName = 'sigla_estado'
+      FixedChar = True
+      Size = 2
+    end
+    object CDS_Estadocodigo_ibge: TIntegerField
+      DisplayLabel = 'IBGE'
+      FieldName = 'codigo_ibge'
+    end
+  end
+  object DS_Estado: TDataSource
+    DataSet = CDS_Estado
+    Left = 29
+    Top = 92
+  end
+end

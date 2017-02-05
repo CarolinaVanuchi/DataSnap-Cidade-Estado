@@ -8,20 +8,26 @@ uses
 
 type
   TDm = class(TDataModule)
-  CDS_Estado: TClientDataSet;
-  DS_Estado: TDataSource;
-  CDS_Cidade: TClientDataSet;
-  DS_Cidade: TDataSource;
-  CDS_Estadocod_estado: TAutoIncField;
-  CDS_Estadocod_pais: TLongWordField;
-  CDS_Estadonome_estado: TStringField;
-  CDS_Estadosigla_estado: TStringField;
-  CDS_Estadocodigo_ibge: TIntegerField;
-  CDS_Cidadecod_cidade: TAutoIncField;
-  CDS_Cidadecod_estado: TLongWordField;
-  CDS_Cidadenome_cidade: TStringField;
-  CDS_Cidadecod_cidade_ibge: TIntegerField;
-  CDS_Cidadecodigo_localidade_anp: TIntegerField;
+    CDS_Estado: TClientDataSet;
+    CDS_Estadocod_estado: TAutoIncField;
+    CDS_Estadocod_pais: TLongWordField;
+    CDS_Estadonome_estado: TStringField;
+    CDS_Estadosigla_estado: TStringField;
+    CDS_Estadocodigo_ibge: TIntegerField;
+    DS_Estado: TDataSource;
+    CDS_Pais: TClientDataSet;
+    CDS_Paiscod_pais: TAutoIncField;
+    CDS_Paisnome_pais: TStringField;
+    DS_Pais: TDataSource;
+    CDS_Cidade: TClientDataSet;
+    CDS_Cidadecod_cidade: TAutoIncField;
+    CDS_Cidadecod_estado: TLongWordField;
+    CDS_Cidadenome_cidade: TStringField;
+    CDS_Cidadecod_cidade_ibge: TIntegerField;
+    CDS_Cidadecodigo_localidade_anp: TIntegerField;
+    DS_Cidade: TDataSource;
+    DSProviderConnection1: TDSProviderConnection;
+    SQLConnection1: TSQLConnection;
   private
     { Private declarations }
   public

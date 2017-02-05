@@ -96,6 +96,11 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="UnitMetodos.pas"/>
+        <DCCReference Include="UnitDm.pas">
+            <Form>Dm</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

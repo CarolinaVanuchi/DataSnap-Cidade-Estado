@@ -14,8 +14,8 @@ object Cad_Estado: TCad_Estado
   OldCreateOrder = False
   WindowState = wsMaximized
   OnClose = FormClose
-  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -147,7 +147,7 @@ object Cad_Estado: TCad_Estado
           Height = 21
           Color = clInactiveCaption
           DataField = 'cod_estado'
-          DataSource = DS_Estado
+          DataSource = Dm.DS_Estado
           Enabled = False
           TabOrder = 0
         end
@@ -157,9 +157,9 @@ object Cad_Estado: TCad_Estado
           Width = 121
           Height = 21
           DataField = 'codigo_ibge'
-          DataSource = DS_Estado
+          DataSource = Dm.DS_Estado
           Enabled = False
-          TabOrder = 1
+          TabOrder = 2
         end
         object edtNome: TDBEdit
           Left = 3
@@ -168,9 +168,9 @@ object Cad_Estado: TCad_Estado
           Height = 21
           CharCase = ecUpperCase
           DataField = 'nome_estado'
-          DataSource = DS_Estado
+          DataSource = Dm.DS_Estado
           Enabled = False
-          TabOrder = 2
+          TabOrder = 4
         end
         object edtSigla: TDBEdit
           Left = 152
@@ -179,7 +179,7 @@ object Cad_Estado: TCad_Estado
           Height = 21
           CharCase = ecUpperCase
           DataField = 'sigla_estado'
-          DataSource = DS_Estado
+          DataSource = Dm.DS_Estado
           Enabled = False
           TabOrder = 3
         end
@@ -189,12 +189,12 @@ object Cad_Estado: TCad_Estado
           Width = 429
           Height = 21
           DataField = 'cod_pais'
-          DataSource = DS_Estado
+          DataSource = Dm.DS_Estado
           Enabled = False
           KeyField = 'cod_pais'
           ListField = 'nome_pais'
-          ListSource = DS_Pais
-          TabOrder = 4
+          ListSource = Dm.DS_Pais
+          TabOrder = 1
         end
       end
       object TabSheet2: TTabSheet
@@ -239,7 +239,7 @@ object Cad_Estado: TCad_Estado
           Width = 584
           Height = 292
           Align = alClient
-          DataSource = DS_Estado
+          DataSource = Dm.DS_Estado
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 1
           TitleFont.Charset = DEFAULT_CHARSET
@@ -282,67 +282,6 @@ object Cad_Estado: TCad_Estado
     object ActCancela: TAction
       Caption = 'Cancelar'
       OnExecute = ActCancelaExecute
-    end
-  end
-  object CDS_Estado: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DSP_Estado'
-    RemoteServer = Cliente_Principal.DSProviderConnection1
-    Left = 165
-    Top = 312
-    object CDS_Estadocod_estado: TAutoIncField
-      DisplayLabel = 'Cod'
-      FieldName = 'cod_estado'
-      ReadOnly = True
-    end
-    object CDS_Estadocod_pais: TLongWordField
-      DisplayLabel = 'Cod Pais'
-      FieldName = 'cod_pais'
-    end
-    object CDS_Estadonome_estado: TStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'nome_estado'
-      Required = True
-      Size = 50
-    end
-    object CDS_Estadosigla_estado: TStringField
-      DisplayLabel = 'Sigla'
-      FieldName = 'sigla_estado'
-      FixedChar = True
-      Size = 2
-    end
-    object CDS_Estadocodigo_ibge: TIntegerField
-      DisplayLabel = 'IBGE'
-      FieldName = 'codigo_ibge'
-    end
-  end
-  object DS_Estado: TDataSource
-    DataSet = CDS_Estado
-    OnDataChange = DS_EstadoDataChange
-    Left = 229
-    Top = 312
-  end
-  object DS_Pais: TDataSource
-    DataSet = CDS_Pais
-    Left = 637
-    Top = 312
-  end
-  object CDS_Pais: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DSP_Pais'
-    RemoteServer = Cliente_Principal.DSProviderConnection1
-    Left = 557
-    Top = 312
-    object CDS_Paiscod_pais: TAutoIncField
-      FieldName = 'cod_pais'
-      ReadOnly = True
-    end
-    object CDS_Paisnome_pais: TStringField
-      FieldName = 'nome_pais'
-      Required = True
-      Size = 30
     end
   end
 end

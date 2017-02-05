@@ -6,8 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
   System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, Data.DB,
-  Datasnap.DBClient, Vcl.Mask, Vcl.DBCtrls, UnitMetodos, UnitCliente_Principal,
-  UnitCad_Estado;
+  Datasnap.DBClient, Vcl.Mask, Vcl.DBCtrls, UnitMetodos, UnitCliente_Principal, UnitDm;
 
 type
   TCad_Cidade = class(TForm)
@@ -42,18 +41,10 @@ type
     edtNome: TDBEdit;
     ActSalvar: TAction;
     Button6: TButton;
-    CDS_Cidade: TClientDataSet;
-    DS_Cidade: TDataSource;
-    CDS_Cidadecod_cidade: TAutoIncField;
-    CDS_Cidadecod_estado: TLongWordField;
-    CDS_Cidadenome_cidade: TStringField;
-    CDS_Cidadecod_cidade_ibge: TIntegerField;
-    CDS_Cidadecodigo_localidade_anp: TIntegerField;
     ActCancela: TAction;
     Button7: TButton;
     edtEstado: TDBLookupComboBox;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ActPesquisaExecute(Sender: TObject);
     procedure DS_CidadeDataChange(Sender: TObject; Field: TField);
@@ -63,6 +54,7 @@ type
     procedure ActIncluirExecute(Sender: TObject);
     procedure ActAlterarExecute(Sender: TObject);
     procedure ActExcluirExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     procedure Filtrar;
     procedure DesabilitarEdicao;
@@ -83,12 +75,8 @@ implementation
 procedure TCad_Cidade.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   DesabilitarEdicao;
-  CDS_Cidade.Close;
-end;
-
-procedure TCad_Cidade.FormCreate(Sender: TObject);
-begin
-  CDS_Cidade.Open;
+  Dm.CDS_Cidade.Close;
+  Dm.CDS_Estado.Close;
 end;
 
 procedure TCad_Cidade.FormKeyDown(Sender: TObject; var Key: Word;
@@ -98,9 +86,15 @@ begin
     Close;
 end;
 
+procedure TCad_Cidade.FormShow(Sender: TObject);
+begin
+   Dm.CDS_Cidade.Open;
+   Dm.CDS_Estado.Open;
+end;
+
 procedure TCad_Cidade.ActAlterarExecute(Sender: TObject);
 begin
-  CDS_Cidade.Edit;
+  Dm.CDS_Cidade.Edit;
   PageControl1.TabIndex := 0;
   ActSalvar.Enabled := True;
   HabilitarEdicao;
@@ -117,13 +111,13 @@ procedure TCad_Cidade.ActExcluirExecute(Sender: TObject);
 var
   conexao : TServidor_Principal_MetodosClient;
 begin
-  conexao := TServidor_Principal_MetodosClient.Create(Cliente_Principal.SQLConnection1.DBXConnection);
+  conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
   try
-    if CDS_Cidadecod_cidade.AsInteger > 0 then
+    if Dm.CDS_Cidadecod_cidade.AsInteger > 0 then
       begin
-        if MessageDlg('Deseja mesmo excluir o Estado '+CDS_Cidadenome_cidade.AsString+'?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+        if MessageDlg('Deseja mesmo excluir o Estado '+Dm.CDS_Cidadenome_cidade.AsString+'?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
           begin
-            conexao.ExcluirCidade(CDS_Cidadecod_cidade.AsInteger);
+            conexao.ExcluirCidade(Dm.CDS_Cidadecod_cidade.AsInteger);
             BuscarTodos;
           end;
       end;
@@ -134,7 +128,7 @@ end;
 
 procedure TCad_Cidade.ActIncluirExecute(Sender: TObject);
 begin
-  CDS_Cidade.Append;
+  Dm.CDS_Cidade.Append;
   PageControl1.TabIndex := 0;
   ActSalvar.Enabled := True;
   HabilitarEdicao;
@@ -147,7 +141,7 @@ end;
 
 procedure TCad_Cidade.Filtrar;
 begin
-  with CDS_Cidade do
+  with Dm.CDS_Cidade do
     begin
       if edtPesquisa.Text <> '' then
         begin
@@ -158,7 +152,7 @@ begin
           Open;
         end
       else
-       CDS_Cidade.Filtered := False;
+       Filtered := False;
     end;
 end;
 
@@ -183,8 +177,8 @@ end;
 
 procedure TCad_Cidade.DS_CidadeDataChange(Sender: TObject; Field: TField);
 begin
-  ActAlterar.Enabled := not(CDS_Cidade.IsEmpty);
-  ActExcluir.Enabled := not(CDS_Cidade.IsEmpty);
+  ActAlterar.Enabled := not(Dm.CDS_Cidade.IsEmpty);
+  ActExcluir.Enabled := not(Dm.CDS_Cidade.IsEmpty);
 end;
 
 procedure TCad_Cidade.ActSairExecute(Sender: TObject);
@@ -196,16 +190,16 @@ procedure TCad_Cidade.ActSalvarExecute(Sender: TObject);
 var
   conexao : TServidor_Principal_MetodosClient;
 begin
- conexao := TServidor_Principal_MetodosClient.Create(Cliente_Principal.SQLConnection1.DBXConnection);
+ conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
  try
-  if not(CDS_Cidadecod_cidade.AsInteger > 0) then
+  if not(Dm.CDS_Cidadecod_cidade.AsInteger > 0) then
     begin
-      conexao.InserirCidade(CDS_Cidadecod_estado.AsInteger, CDS_Cidadenome_cidade.AsString, CDS_Cidadecod_cidade_ibge.AsInteger, CDS_Cidadecodigo_localidade_anp.AsInteger);
+      conexao.InserirCidade(Dm.CDS_Cidadecod_estado.AsInteger, Dm.CDS_Cidadenome_cidade.AsString, Dm.CDS_Cidadecod_cidade_ibge.AsInteger, Dm.CDS_Cidadecodigo_localidade_anp.AsInteger);
     end
   else
     begin
-      conexao.alterarCidade(CDS_Cidadecod_cidade.AsInteger,
-        CDS_Cidadecod_estado.AsInteger, CDS_Cidadenome_cidade.AsString, CDS_Cidadecod_cidade_ibge.AsInteger, CDS_Cidadecodigo_localidade_anp.AsInteger);
+      conexao.alterarCidade(Dm.CDS_Cidadecod_cidade.AsInteger,
+        Dm.CDS_Cidadecod_estado.AsInteger, Dm.CDS_Cidadenome_cidade.AsString, Dm.CDS_Cidadecod_cidade_ibge.AsInteger, Dm.CDS_Cidadecodigo_localidade_anp.AsInteger);
     end;
  finally
    FreeAndNil(conexao);
@@ -221,12 +215,12 @@ procedure TCad_Cidade.BuscarTodos;
 var
   conexao : TServidor_Principal_MetodosClient;
 begin
-  conexao := TServidor_Principal_MetodosClient.Create(Cliente_Principal.SQLConnection1.DBXConnection);
+  conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
   try
-    CDS_Cidade.Close;
+    Dm.CDS_Cidade.Close;
     conexao.ListarCidade;
-    CDS_Cidade.Open;
-    CDS_Cidade.Refresh;
+    Dm.CDS_Cidade.Open;
+    Dm.CDS_Cidade.Refresh;
   finally
     FreeAndNil(conexao);
   end;

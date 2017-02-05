@@ -14,8 +14,8 @@ object Cad_Cidade: TCad_Cidade
   OldCreateOrder = False
   WindowState = wsMaximized
   OnClose = FormClose
-  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -128,7 +128,7 @@ object Cad_Cidade: TCad_Cidade
         end
         object Label5: TLabel
           Left = 3
-          Top = 132
+          Top = 116
           Width = 31
           Height = 13
           Caption = 'Nome:'
@@ -141,13 +141,13 @@ object Cad_Cidade: TCad_Cidade
           Caption = 'C'#243'digo Localidade ANP:'
         end
         object edtCodigo: TDBEdit
-          Left = 3
+          Left = 2
           Top = 36
           Width = 121
           Height = 21
           Color = clInactiveCaption
           DataField = 'cod_cidade'
-          DataSource = DS_Cidade
+          DataSource = Dm.DS_Cidade
           Enabled = False
           TabOrder = 0
         end
@@ -157,9 +157,9 @@ object Cad_Cidade: TCad_Cidade
           Width = 121
           Height = 21
           DataField = 'cod_cidade_ibge'
-          DataSource = DS_Cidade
+          DataSource = Dm.DS_Cidade
           Enabled = False
-          TabOrder = 1
+          TabOrder = 2
         end
         object edtLocalidade: TDBEdit
           Left = 152
@@ -167,20 +167,20 @@ object Cad_Cidade: TCad_Cidade
           Width = 121
           Height = 21
           DataField = 'codigo_localidade_anp'
-          DataSource = DS_Cidade
+          DataSource = Dm.DS_Cidade
           Enabled = False
-          TabOrder = 2
+          TabOrder = 3
         end
         object edtNome: TDBEdit
           Left = 3
-          Top = 151
+          Top = 135
           Width = 574
           Height = 21
           CharCase = ecUpperCase
           DataField = 'nome_cidade'
-          DataSource = DS_Cidade
+          DataSource = Dm.DS_Cidade
           Enabled = False
-          TabOrder = 3
+          TabOrder = 4
         end
         object edtEstado: TDBLookupComboBox
           Left = 152
@@ -188,12 +188,12 @@ object Cad_Cidade: TCad_Cidade
           Width = 425
           Height = 21
           DataField = 'cod_estado'
-          DataSource = DS_Cidade
+          DataSource = Dm.DS_Cidade
           Enabled = False
           KeyField = 'cod_estado'
           ListField = 'nome_estado'
-          ListSource = Cad_Estado.DS_Estado
-          TabOrder = 4
+          ListSource = Dm.DS_Estado
+          TabOrder = 1
         end
       end
       object TabSheet2: TTabSheet
@@ -238,7 +238,7 @@ object Cad_Cidade: TCad_Cidade
           Width = 588
           Height = 292
           Align = alClient
-          DataSource = DS_Cidade
+          DataSource = Dm.DS_Cidade
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 1
           TitleFont.Charset = DEFAULT_CHARSET
@@ -282,37 +282,5 @@ object Cad_Cidade: TCad_Cidade
       Caption = 'Cancelar'
       OnExecute = ActCancelaExecute
     end
-  end
-  object CDS_Cidade: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DSP_Cidade'
-    RemoteServer = Cliente_Principal.DSProviderConnection1
-    Left = 237
-    Top = 320
-    object CDS_Cidadecod_cidade: TAutoIncField
-      FieldName = 'cod_cidade'
-      ReadOnly = True
-    end
-    object CDS_Cidadecod_estado: TLongWordField
-      FieldName = 'cod_estado'
-    end
-    object CDS_Cidadenome_cidade: TStringField
-      FieldName = 'nome_cidade'
-      Required = True
-      Size = 30
-    end
-    object CDS_Cidadecod_cidade_ibge: TIntegerField
-      FieldName = 'cod_cidade_ibge'
-    end
-    object CDS_Cidadecodigo_localidade_anp: TIntegerField
-      FieldName = 'codigo_localidade_anp'
-    end
-  end
-  object DS_Cidade: TDataSource
-    DataSet = CDS_Cidade
-    OnDataChange = DS_CidadeDataChange
-    Left = 317
-    Top = 320
   end
 end

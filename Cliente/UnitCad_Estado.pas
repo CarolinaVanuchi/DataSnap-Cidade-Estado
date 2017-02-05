@@ -8,7 +8,7 @@ uses
   System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, Data.DB,
   Datasnap.DBClient, Datasnap.DSConnect, Data.SqlExpr, Data.DBXDataSnap,
   IPPeerClient, Data.DBXCommon, UnitCliente_Principal, UnitMetodos, Vcl.Mask,
-  Vcl.DBCtrls;
+  Vcl.DBCtrls, UnitDm;
 
 type
   TCad_Estado = class(TForm)
@@ -43,22 +43,10 @@ type
     edtSigla: TDBEdit;
     ActSalvar: TAction;
     Button6: TButton;
-    CDS_Estado: TClientDataSet;
-    DS_Estado: TDataSource;
-    CDS_Estadocod_estado: TAutoIncField;
-    CDS_Estadocod_pais: TLongWordField;
-    CDS_Estadonome_estado: TStringField;
-    CDS_Estadosigla_estado: TStringField;
-    CDS_Estadocodigo_ibge: TIntegerField;
     ActCancela: TAction;
     Button7: TButton;
     edtPais: TDBLookupComboBox;
-    DS_Pais: TDataSource;
-    CDS_Pais: TClientDataSet;
-    CDS_Paiscod_pais: TAutoIncField;
-    CDS_Paisnome_pais: TStringField;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ActPesquisaExecute(Sender: TObject);
     procedure ActSairExecute(Sender: TObject);
@@ -68,6 +56,7 @@ type
     procedure ActIncluirExecute(Sender: TObject);
     procedure ActSalvarExecute(Sender: TObject);
     procedure ActCancelaExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     procedure Filtrar;
     procedure BuscarTodos;
@@ -90,13 +79,7 @@ implementation
 procedure TCad_Estado.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   DesabilitarEdicao;
-  CDS_Estado.Close;
-end;
-
-procedure TCad_Estado.FormCreate(Sender: TObject);
-begin
-  CDS_Estado.Open;
-  CDS_Pais.Open;
+  Dm.CDS_Estado.Close;
 end;
 
 procedure TCad_Estado.FormKeyDown(Sender: TObject; var Key: Word;
@@ -106,9 +89,15 @@ begin
     Close;
 end;
 
+procedure TCad_Estado.FormShow(Sender: TObject);
+begin
+  Dm.CDS_Estado.Open;
+  Dm.CDS_Pais.Open;
+end;
+
 procedure TCad_Estado.Filtrar;
 begin
-  with CDS_Estado do
+  with Dm.CDS_Estado do
     begin
       if edtPesquisa.Text <> '' then
         begin
@@ -119,13 +108,13 @@ begin
           Open;
         end
       else
-       CDS_Estado.Filtered := False;
+       Filtered := False;
     end;
 end;
 
 procedure TCad_Estado.ActAlterarExecute(Sender: TObject);
 begin
-  CDS_Estado.Edit;
+  Dm.CDS_Estado.Edit;
   PageControl1.TabIndex := 0;
   ActSalvar.Enabled := True;
   HabilitarEdicao;
@@ -142,13 +131,13 @@ procedure TCad_Estado.ActExcluirExecute(Sender: TObject);
 var
   conexao : TServidor_Principal_MetodosClient;
 begin
-  conexao := TServidor_Principal_MetodosClient.Create(Cliente_Principal.SQLConnection1.DBXConnection);
+  conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
   try
-    if CDS_Estadocod_estado.AsInteger > 0 then
+    if Dm.CDS_Estadocod_estado.AsInteger > 0 then
       begin
-        if MessageDlg('Deseja mesmo excluir o Estado '+CDS_Estadonome_estado.AsString+'?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+        if MessageDlg('Deseja mesmo excluir o Estado '+Dm.CDS_Estadonome_estado.AsString+'?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
           begin
-            conexao.ExcluirEstado(CDS_Estadocod_estado.AsInteger);
+            conexao.ExcluirEstado(Dm.CDS_Estadocod_estado.AsInteger);
             BuscarTodos;
           end;
       end;
@@ -159,7 +148,7 @@ end;
 
 procedure TCad_Estado.ActIncluirExecute(Sender: TObject);
 begin
-  CDS_Estado.Append;
+  Dm.CDS_Estado.Append;
   PageControl1.TabIndex := 0;
   ActSalvar.Enabled := True;
   HabilitarEdicao;
@@ -179,16 +168,16 @@ procedure TCad_Estado.ActSalvarExecute(Sender: TObject);
 var
   conexao : TServidor_Principal_MetodosClient;
 begin
- conexao := TServidor_Principal_MetodosClient.Create(Cliente_Principal.SQLConnection1.DBXConnection);
+ conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
  try
-  if not(CDS_Estadocod_estado.AsInteger > 0) then
+  if not(Dm.CDS_Estadocod_estado.AsInteger > 0) then
     begin
-      conexao.InserirEstado(CDS_Estadocod_pais.AsInteger, CDS_Estadonome_estado.AsString, CDS_Estadosigla_estado.AsString, CDS_Estadocodigo_ibge.AsInteger);
+      conexao.InserirEstado(Dm.CDS_Estadocod_pais.AsInteger, Dm.CDS_Estadonome_estado.AsString, Dm.CDS_Estadosigla_estado.AsString, Dm.CDS_Estadocodigo_ibge.AsInteger);
     end
   else
     begin
-      conexao.alterarEstado(CDS_Estadocod_estado.AsInteger,
-      CDS_Estadocod_pais.AsInteger, CDS_Estadonome_estado.AsString, CDS_Estadosigla_estado.AsString, CDS_Estadocodigo_ibge.AsInteger);
+      conexao.alterarEstado(Dm.CDS_Estadocod_estado.AsInteger,
+      Dm.CDS_Estadocod_pais.AsInteger, Dm.CDS_Estadonome_estado.AsString, Dm.CDS_Estadosigla_estado.AsString, Dm.CDS_Estadocodigo_ibge.AsInteger);
     end;
  finally
    FreeAndNil(conexao);
@@ -203,20 +192,20 @@ procedure TCad_Estado.BuscarTodos;
 var
   conexao : TServidor_Principal_MetodosClient;
 begin
-  conexao := TServidor_Principal_MetodosClient.Create(Cliente_Principal.SQLConnection1.DBXConnection);
+  conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
   try
-    CDS_Estado.Close;
+    Dm.CDS_Estado.Close;
     conexao.ListarEstado;
-    CDS_Estado.Open;
-    CDS_Estado.Refresh;
+    Dm.CDS_Estado.Open;
+    Dm.CDS_Estado.Refresh;
   finally
     FreeAndNil(conexao);
   end;
 end;
 procedure TCad_Estado.DS_EstadoDataChange(Sender: TObject; Field: TField);
 begin
-    ActAlterar.Enabled := not(CDS_Estado.IsEmpty);
-    ActExcluir.Enabled := not(CDS_Estado.IsEmpty);
+    ActAlterar.Enabled := not(Dm.CDS_Estado.IsEmpty);
+    ActExcluir.Enabled := not(Dm.CDS_Estado.IsEmpty);
 end;
 
 procedure TCad_Estado.HabilitarEdicao;

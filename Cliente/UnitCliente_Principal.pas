@@ -12,17 +12,16 @@ uses
 type
   TCliente_Principal = class(TForm)
     Panel1: TPanel;
-    ActConexao: TActionList;
+    Act: TActionList;
     ActEstado: TAction;
     ActCidade: TAction;
     Panel2: TPanel;
     Button1: TButton;
     Button2: TButton;
-    SQLConnection1: TSQLConnection;
-    DSProviderConnection1: TDSProviderConnection;
-    procedure FormCreate(Sender: TObject);
     procedure ActEstadoExecute(Sender: TObject);
     procedure ActCidadeExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -58,8 +57,15 @@ begin
   end;
 end;
 
-procedure TCliente_Principal.FormCreate(Sender: TObject);
+procedure TCliente_Principal.FormClose(Sender: TObject;
+  var Action: TCloseAction);
 begin
-  SQLConnection1.Connected := True;
+  Dm.SQLConnection1.Connected := False;
 end;
+
+procedure TCliente_Principal.FormShow(Sender: TObject);
+begin
+  Dm.SQLConnection1.Connected := True;
+end;
+
 end.

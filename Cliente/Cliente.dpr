@@ -5,7 +5,8 @@ uses
   UnitCliente_Principal in 'UnitCliente_Principal.pas' {Cliente_Principal},
   UnitCad_Estado in 'UnitCad_Estado.pas' {Cad_Estado},
   UnitCad_Cidade in 'UnitCad_Cidade.pas' {Cad_Cidade},
-  UnitMetodos in 'UnitMetodos.pas';
+  UnitMetodos in 'UnitMetodos.pas',
+  UnitDm in 'UnitDm.pas' {Dm: TDataModule};
 
 {$R *.res}
 
@@ -15,5 +16,6 @@ begin
   Application.CreateForm(TCliente_Principal, Cliente_Principal);
   Application.CreateForm(TCad_Estado, Cad_Estado);
   Application.CreateForm(TCad_Cidade, Cad_Cidade);
+  Application.CreateForm(TDm, Dm);
   Application.Run;
 end.

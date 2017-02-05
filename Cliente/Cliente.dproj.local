@@ -2,22 +2,22 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2017/02/04 18:38:32.000.123,=C:\Users\maria\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2017/02/04 19:17:06.000.361,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCliente_Principal.dfm=C:\Users\maria\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2017/02/04 19:17:06.000.361,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCliente_Principal.pas=C:\Users\maria\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2017/02/04 19:17:17.000.703,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Cliente.dproj=C:\Users\maria\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2017/02/04 19:17:06.000.361,C:\Users\maria\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCliente_Principal.pas</Transaction>
+    <Transaction>2017/02/04 19:17:06.000.361,C:\Users\maria\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCliente_Principal.dfm</Transaction>
+    <Transaction>2017/02/04 19:17:17.000.703,C:\Users\maria\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Cliente.dproj</Transaction>
     <Transaction>2017/02/04 19:48:50.000.308,=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
-    <Transaction>2017/02/04 19:53:51.000.045,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.dfm=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCad_Estado.dfm</Transaction>
-    <Transaction>2017/02/04 19:53:51.000.045,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCad_Estado.pas</Transaction>
+    <Transaction>2017/02/04 19:53:51.000.045,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCad_Estado.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
+    <Transaction>2017/02/04 19:53:51.000.045,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCad_Estado.dfm=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.dfm</Transaction>
     <Transaction>2017/02/04 20:27:41.000.332,=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
-    <Transaction>2017/02/04 20:28:02.000.820,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.dfm=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCad_Cidade.dfm</Transaction>
-    <Transaction>2017/02/04 20:28:02.000.820,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCad_Cidade.pas</Transaction>
+    <Transaction>2017/02/04 20:28:02.000.820,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCad_Cidade.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
+    <Transaction>2017/02/04 20:28:02.000.820,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitCad_Cidade.dfm=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.dfm</Transaction>
     <Transaction>2017/02/04 23:14:39.000.994,=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
-    <Transaction>2017/02/04 23:15:05.000.899,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitMetodos_Cliente.pas</Transaction>
+    <Transaction>2017/02/04 23:15:05.000.899,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitMetodos_Cliente.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
     <Transaction>2017/02/05 09:39:33.000.974,=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
-    <Transaction>2017/02/05 09:39:45.000.463,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.dfm=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitDm.dfm</Transaction>
-    <Transaction>2017/02/05 09:39:45.000.463,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitDm.pas</Transaction>
+    <Transaction>2017/02/05 09:39:45.000.463,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitDm.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
+    <Transaction>2017/02/05 09:39:45.000.463,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitDm.dfm=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.dfm</Transaction>
     <Transaction>2017/02/05 09:56:46.000.655,=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
-    <Transaction>2017/02/05 09:57:14.000.923,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitMetodos.pas</Transaction>
+    <Transaction>2017/02/05 09:57:14.000.923,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitMetodos.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
     <Transaction>2017/02/05 10:03:23.000.618,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitDm.pas=</Transaction>
     <Transaction>2017/02/05 10:03:29.000.911,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitMetodos.pas=</Transaction>
     <Transaction>2017/02/05 10:04:15.000.484,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitMetodos_Cliente.pas=</Transaction>
@@ -27,6 +27,8 @@
     <Transaction>2017/02/05 10:09:14.000.297,=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitDm.pas</Transaction>
     <Transaction>2017/02/05 10:13:08.000.717,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitDm.pas=</Transaction>
     <Transaction>2017/02/05 10:29:31.000.820,=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
-    <Transaction>2017/02/05 10:29:50.000.115,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitMetodos.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
+    <Transaction>2017/02/05 10:29:50.000.115,D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitMetodos.pas</Transaction>
+    <Transaction>2017/02/05 15:53:16.715,=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\Unit1.pas</Transaction>
+    <Transaction>2017/02/05 15:53:32.525,=D:\Workspace\Delphi\Exemplo Estado Cidade\Cliente\UnitDm.pas</Transaction>
   </Transactions>
 </BorlandProject>

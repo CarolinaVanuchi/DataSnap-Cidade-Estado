@@ -12,7 +12,8 @@ object Cliente_Principal: TCliente_Principal
   Font.Style = []
   OldCreateOrder = False
   WindowState = wsMaximized
-  OnCreate = FormCreate
+  OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -57,9 +58,9 @@ object Cliente_Principal: TCliente_Principal
       end
     end
   end
-  object ActConexao: TActionList
+  object Act: TActionList
     Left = 32
-    Top = 352
+    Top = 336
     object ActEstado: TAction
       Caption = 'Estado'
       OnExecute = ActEstadoExecute
@@ -68,28 +69,5 @@ object Cliente_Principal: TCliente_Principal
       Caption = 'Cidade'
       OnExecute = ActCidadeExecute
     end
-  end
-  object SQLConnection1: TSQLConnection
-    DriverName = 'DataSnap'
-    LoginPrompt = False
-    Params.Strings = (
-      'DriverUnit=Data.DBXDataSnap'
-      'HostName=localhost'
-      'Port=211'
-      'CommunicationProtocol=tcp/ip'
-      'DatasnapContext=datasnap/'
-      
-        'DriverAssemblyLoader=Borland.Data.TDBXClientDriverLoader,Borland' +
-        '.Data.DbxClientDriver,Version=21.0.0.0,Culture=neutral,PublicKey' +
-        'Token=91d62ebb5b0d1b1b')
-    Left = 272
-    Top = 356
-    UniqueId = '{1BD55322-084A-4FC7-B19B-A9FE52F0907E}'
-  end
-  object DSProviderConnection1: TDSProviderConnection
-    ServerClassName = 'TServidor_Principal_Metodos'
-    SQLConnection = SQLConnection1
-    Left = 160
-    Top = 356
   end
 end
