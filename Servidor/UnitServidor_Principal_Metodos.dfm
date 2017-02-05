@@ -49,4 +49,17 @@ object Servidor_Principal_Metodos: TServidor_Principal_Metodos
     Left = 240
     Top = 80
   end
+  object Q_Pais: TFDQuery
+    Connection = FDConnection1
+    SQL.Strings = (
+      'select * from tab_pais')
+    Left = 160
+    Top = 136
+  end
+  object DSP_Pais: TDataSetProvider
+    DataSet = Q_Pais
+    BeforeGetRecords = DSP_PaisBeforeGetRecords
+    Left = 240
+    Top = 136
+  end
 end

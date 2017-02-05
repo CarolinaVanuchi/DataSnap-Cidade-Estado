@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
   System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, Data.DB,
-  Datasnap.DBClient, Vcl.Mask, Vcl.DBCtrls, UnitMetodos, UnitCliente_Principal;
+  Datasnap.DBClient, Vcl.Mask, Vcl.DBCtrls, UnitMetodos, UnitCliente_Principal,
+  UnitCad_Estado;
 
 type
   TCad_Cidade = class(TForm)
@@ -36,7 +37,6 @@ type
     Label5: TLabel;
     Label6: TLabel;
     edtCodigo: TDBEdit;
-    edtEstado: TDBEdit;
     edtIBGE: TDBEdit;
     edtLocalidade: TDBEdit;
     edtNome: TDBEdit;
@@ -51,6 +51,7 @@ type
     CDS_Cidadecodigo_localidade_anp: TIntegerField;
     ActCancela: TAction;
     Button7: TButton;
+    edtEstado: TDBLookupComboBox;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

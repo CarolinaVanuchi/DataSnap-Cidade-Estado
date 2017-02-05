@@ -120,22 +120,22 @@ object Cad_Cidade: TCad_Cidade
           Caption = 'Estado:'
         end
         object Label4: TLabel
-          Left = 304
-          Top = 16
+          Left = 0
+          Top = 70
           Width = 63
           Height = 13
           Caption = 'C'#243'digo IBGE:'
         end
         object Label5: TLabel
           Left = 3
-          Top = 68
+          Top = 132
           Width = 31
           Height = 13
           Caption = 'Nome:'
         end
         object Label6: TLabel
-          Left = 456
-          Top = 17
+          Left = 152
+          Top = 71
           Width = 113
           Height = 13
           Caption = 'C'#243'digo Localidade ANP:'
@@ -151,45 +151,48 @@ object Cad_Cidade: TCad_Cidade
           Enabled = False
           TabOrder = 0
         end
-        object edtEstado: TDBEdit
-          Left = 152
-          Top = 36
-          Width = 121
-          Height = 21
-          DataField = 'cod_estado'
-          DataSource = DS_Cidade
-          Enabled = False
-          TabOrder = 1
-        end
         object edtIBGE: TDBEdit
-          Left = 304
-          Top = 35
+          Left = 0
+          Top = 89
           Width = 121
           Height = 21
           DataField = 'cod_cidade_ibge'
           DataSource = DS_Cidade
           Enabled = False
-          TabOrder = 2
+          TabOrder = 1
         end
         object edtLocalidade: TDBEdit
-          Left = 456
-          Top = 36
+          Left = 152
+          Top = 90
           Width = 121
           Height = 21
           DataField = 'codigo_localidade_anp'
           DataSource = DS_Cidade
           Enabled = False
-          TabOrder = 3
+          TabOrder = 2
         end
         object edtNome: TDBEdit
           Left = 3
-          Top = 87
+          Top = 151
           Width = 574
           Height = 21
           CharCase = ecUpperCase
           DataField = 'nome_cidade'
           DataSource = DS_Cidade
           Enabled = False
+          TabOrder = 3
+        end
+        object edtEstado: TDBLookupComboBox
+          Left = 152
+          Top = 36
+          Width = 425
+          Height = 21
+          DataField = 'cod_estado'
+          DataSource = DS_Cidade
+          Enabled = False
+          KeyField = 'cod_estado'
+          ListField = 'nome_estado'
+          ListSource = Cad_Estado.DS_Estado
           TabOrder = 4
         end
       end
@@ -285,8 +288,8 @@ object Cad_Cidade: TCad_Cidade
     Params = <>
     ProviderName = 'DSP_Cidade'
     RemoteServer = Cliente_Principal.DSProviderConnection1
-    Left = 557
-    Top = 312
+    Left = 237
+    Top = 320
     object CDS_Cidadecod_cidade: TAutoIncField
       FieldName = 'cod_cidade'
       ReadOnly = True
@@ -309,7 +312,7 @@ object Cad_Cidade: TCad_Cidade
   object DS_Cidade: TDataSource
     DataSet = CDS_Cidade
     OnDataChange = DS_CidadeDataChange
-    Left = 637
-    Top = 312
+    Left = 317
+    Top = 320
   end
 end

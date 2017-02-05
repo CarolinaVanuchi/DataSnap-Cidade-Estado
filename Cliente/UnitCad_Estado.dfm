@@ -120,22 +120,22 @@ object Cad_Estado: TCad_Estado
           Caption = 'Pa'#237's:'
         end
         object Label4: TLabel
-          Left = 304
-          Top = 21
+          Left = 3
+          Top = 75
           Width = 67
           Height = 13
           Caption = 'C'#243'digo IBGE:'
         end
         object Label5: TLabel
           Left = 3
-          Top = 83
+          Top = 121
           Width = 33
           Height = 13
           Caption = 'Nome:'
         end
         object Label6: TLabel
-          Left = 456
-          Top = 21
+          Left = 152
+          Top = 71
           Width = 27
           Height = 13
           Caption = 'Sigla:'
@@ -151,46 +151,49 @@ object Cad_Estado: TCad_Estado
           Enabled = False
           TabOrder = 0
         end
-        object edtPais: TDBEdit
-          Left = 152
-          Top = 40
-          Width = 121
-          Height = 21
-          DataField = 'cod_pais'
-          DataSource = DS_Estado
-          Enabled = False
-          TabOrder = 1
-        end
         object edtIBGE: TDBEdit
-          Left = 304
-          Top = 40
+          Left = 3
+          Top = 94
           Width = 121
           Height = 21
           DataField = 'codigo_ibge'
           DataSource = DS_Estado
           Enabled = False
-          TabOrder = 2
+          TabOrder = 1
         end
         object edtNome: TDBEdit
           Left = 3
-          Top = 102
+          Top = 140
           Width = 574
           Height = 21
           CharCase = ecUpperCase
           DataField = 'nome_estado'
           DataSource = DS_Estado
           Enabled = False
-          TabOrder = 3
+          TabOrder = 2
         end
         object edtSigla: TDBEdit
-          Left = 456
-          Top = 40
+          Left = 152
+          Top = 90
           Width = 121
           Height = 21
           CharCase = ecUpperCase
           DataField = 'sigla_estado'
           DataSource = DS_Estado
           Enabled = False
+          TabOrder = 3
+        end
+        object edtPais: TDBLookupComboBox
+          Left = 152
+          Top = 40
+          Width = 429
+          Height = 21
+          DataField = 'cod_pais'
+          DataSource = DS_Estado
+          Enabled = False
+          KeyField = 'cod_pais'
+          ListField = 'nome_pais'
+          ListSource = DS_Pais
           TabOrder = 4
         end
       end
@@ -286,8 +289,8 @@ object Cad_Estado: TCad_Estado
     Params = <>
     ProviderName = 'DSP_Estado'
     RemoteServer = Cliente_Principal.DSProviderConnection1
-    Left = 469
-    Top = 296
+    Left = 165
+    Top = 312
     object CDS_Estadocod_estado: TAutoIncField
       DisplayLabel = 'Cod'
       FieldName = 'cod_estado'
@@ -317,7 +320,29 @@ object Cad_Estado: TCad_Estado
   object DS_Estado: TDataSource
     DataSet = CDS_Estado
     OnDataChange = DS_EstadoDataChange
-    Left = 549
-    Top = 296
+    Left = 229
+    Top = 312
+  end
+  object DS_Pais: TDataSource
+    DataSet = CDS_Pais
+    Left = 637
+    Top = 312
+  end
+  object CDS_Pais: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSP_Pais'
+    RemoteServer = Cliente_Principal.DSProviderConnection1
+    Left = 557
+    Top = 312
+    object CDS_Paiscod_pais: TAutoIncField
+      FieldName = 'cod_pais'
+      ReadOnly = True
+    end
+    object CDS_Paisnome_pais: TStringField
+      FieldName = 'nome_pais'
+      Required = True
+      Size = 30
+    end
   end
 end

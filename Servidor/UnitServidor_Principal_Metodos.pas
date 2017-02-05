@@ -19,9 +19,13 @@ type
     Q_Cidade: TFDQuery;
     DSP_Estado: TDataSetProvider;
     DSP_Cidade: TDataSetProvider;
+    Q_Pais: TFDQuery;
+    DSP_Pais: TDataSetProvider;
     procedure DSP_EstadoBeforeGetRecords(Sender: TObject;
       var OwnerData: OleVariant);
     procedure DSP_CidadeBeforeGetRecords(Sender: TObject;
+      var OwnerData: OleVariant);
+    procedure DSP_PaisBeforeGetRecords(Sender: TObject;
       var OwnerData: OleVariant);
   private
     { Private declarations }
@@ -60,6 +64,12 @@ procedure TServidor_Principal_Metodos.DSP_EstadoBeforeGetRecords(
   Sender: TObject; var OwnerData: OleVariant);
 begin
   //
+end;
+
+procedure TServidor_Principal_Metodos.DSP_PaisBeforeGetRecords(Sender: TObject;
+  var OwnerData: OleVariant);
+begin
+//
 end;
 
 procedure TServidor_Principal_Metodos.ListarEstado;

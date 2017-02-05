@@ -41,7 +41,6 @@ type
     edtNome: TDBEdit;
     Label6: TLabel;
     edtSigla: TDBEdit;
-    edtPais: TDBEdit;
     ActSalvar: TAction;
     Button6: TButton;
     CDS_Estado: TClientDataSet;
@@ -53,6 +52,11 @@ type
     CDS_Estadocodigo_ibge: TIntegerField;
     ActCancela: TAction;
     Button7: TButton;
+    edtPais: TDBLookupComboBox;
+    DS_Pais: TDataSource;
+    CDS_Pais: TClientDataSet;
+    CDS_Paiscod_pais: TAutoIncField;
+    CDS_Paisnome_pais: TStringField;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -92,6 +96,7 @@ end;
 procedure TCad_Estado.FormCreate(Sender: TObject);
 begin
   CDS_Estado.Open;
+  CDS_Pais.Open;
 end;
 
 procedure TCad_Estado.FormKeyDown(Sender: TObject; var Key: Word;
