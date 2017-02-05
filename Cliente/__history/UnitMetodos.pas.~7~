@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 05/02/2017 12:03:56
+// 05/02/2017 10:43:52
 //
 
 unit UnitMetodos;
@@ -14,20 +14,14 @@ type
   private
     FDSP_EstadoBeforeGetRecordsCommand: TDBXCommand;
     FDSP_CidadeBeforeGetRecordsCommand: TDBXCommand;
-    FExcluirEstadoCommand: TDBXCommand;
     FListarTodosCommand: TDBXCommand;
-    FAlterarEstadoCommand: TDBXCommand;
-    FInserirEstadoCommand: TDBXCommand;
   public
     constructor Create(ADBXConnection: TDBXConnection); overload;
     constructor Create(ADBXConnection: TDBXConnection; AInstanceOwner: Boolean); overload;
     destructor Destroy; override;
     procedure DSP_EstadoBeforeGetRecords(Sender: TObject; var OwnerData: OleVariant);
     procedure DSP_CidadeBeforeGetRecords(Sender: TObject; var OwnerData: OleVariant);
-    procedure ExcluirEstado(cod_estado: Integer);
-    procedure ListarTodos(tabela: string);
-    procedure AlterarEstado(cod_estado: Integer; cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
-    procedure InserirEstado(cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
+    procedure ListarTodos;
   end;
 
 implementation
@@ -86,20 +80,7 @@ begin
   OwnerData := FDSP_CidadeBeforeGetRecordsCommand.Parameters[1].Value.AsVariant;
 end;
 
-procedure TServidor_Principal_MetodosClient.ExcluirEstado(cod_estado: Integer);
-begin
-  if FExcluirEstadoCommand = nil then
-  begin
-    FExcluirEstadoCommand := FDBXConnection.CreateCommand;
-    FExcluirEstadoCommand.CommandType := TDBXCommandTypes.DSServerMethod;
-    FExcluirEstadoCommand.Text := 'TServidor_Principal_Metodos.ExcluirEstado';
-    FExcluirEstadoCommand.Prepare;
-  end;
-  FExcluirEstadoCommand.Parameters[0].Value.SetInt32(cod_estado);
-  FExcluirEstadoCommand.ExecuteUpdate;
-end;
-
-procedure TServidor_Principal_MetodosClient.ListarTodos(tabela: string);
+procedure TServidor_Principal_MetodosClient.ListarTodos;
 begin
   if FListarTodosCommand = nil then
   begin
@@ -108,41 +89,7 @@ begin
     FListarTodosCommand.Text := 'TServidor_Principal_Metodos.ListarTodos';
     FListarTodosCommand.Prepare;
   end;
-  FListarTodosCommand.Parameters[0].Value.SetWideString(tabela);
   FListarTodosCommand.ExecuteUpdate;
-end;
-
-procedure TServidor_Principal_MetodosClient.AlterarEstado(cod_estado: Integer; cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
-begin
-  if FAlterarEstadoCommand = nil then
-  begin
-    FAlterarEstadoCommand := FDBXConnection.CreateCommand;
-    FAlterarEstadoCommand.CommandType := TDBXCommandTypes.DSServerMethod;
-    FAlterarEstadoCommand.Text := 'TServidor_Principal_Metodos.AlterarEstado';
-    FAlterarEstadoCommand.Prepare;
-  end;
-  FAlterarEstadoCommand.Parameters[0].Value.SetInt32(cod_estado);
-  FAlterarEstadoCommand.Parameters[1].Value.SetInt32(cod_pais);
-  FAlterarEstadoCommand.Parameters[2].Value.SetWideString(nome_estado);
-  FAlterarEstadoCommand.Parameters[3].Value.SetWideString(sigla_estado);
-  FAlterarEstadoCommand.Parameters[4].Value.SetInt32(codigo_ibge);
-  FAlterarEstadoCommand.ExecuteUpdate;
-end;
-
-procedure TServidor_Principal_MetodosClient.InserirEstado(cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
-begin
-  if FInserirEstadoCommand = nil then
-  begin
-    FInserirEstadoCommand := FDBXConnection.CreateCommand;
-    FInserirEstadoCommand.CommandType := TDBXCommandTypes.DSServerMethod;
-    FInserirEstadoCommand.Text := 'TServidor_Principal_Metodos.InserirEstado';
-    FInserirEstadoCommand.Prepare;
-  end;
-  FInserirEstadoCommand.Parameters[0].Value.SetInt32(cod_pais);
-  FInserirEstadoCommand.Parameters[1].Value.SetWideString(nome_estado);
-  FInserirEstadoCommand.Parameters[2].Value.SetWideString(sigla_estado);
-  FInserirEstadoCommand.Parameters[3].Value.SetInt32(codigo_ibge);
-  FInserirEstadoCommand.ExecuteUpdate;
 end;
 
 
@@ -162,10 +109,7 @@ destructor TServidor_Principal_MetodosClient.Destroy;
 begin
   FDSP_EstadoBeforeGetRecordsCommand.DisposeOf;
   FDSP_CidadeBeforeGetRecordsCommand.DisposeOf;
-  FExcluirEstadoCommand.DisposeOf;
   FListarTodosCommand.DisposeOf;
-  FAlterarEstadoCommand.DisposeOf;
-  FInserirEstadoCommand.DisposeOf;
   inherited;
 end;
 

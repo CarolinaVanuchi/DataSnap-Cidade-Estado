@@ -116,7 +116,7 @@ end;
 procedure TCad_Estado.ActAlterarExecute(Sender: TObject);
 begin
   CDS_Estado.Edit;
-  PageControl1.TabIndex := 0;
+  PageControl1.TabIndex := 2;
 end;
 
 procedure TCad_Estado.ActExcluirExecute(Sender: TObject);
@@ -141,7 +141,7 @@ end;
 procedure TCad_Estado.ActIncluirExecute(Sender: TObject);
 begin
   CDS_Estado.Append;
-  PageControl1.TabIndex := 0;
+  PageControl1.TabIndex := 2;
 end;
 
 procedure TCad_Estado.ActPesquisaExecute(Sender: TObject);

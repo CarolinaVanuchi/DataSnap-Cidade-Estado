@@ -31,8 +31,8 @@ type
     procedure ListarTodos(tabela : String);
     procedure AlterarEstado(cod_estado, cod_pais: Integer; nome_estado,
       sigla_estado: String; codigo_ibge: Integer);
-    procedure InserirEstado(cod_pais: Integer; nome_estado : String; sigla_estado : String;
-  codigo_ibge: Integer);
+    procedure InserirEstado(cod_pais: Integer; nome_estado, sigla_estado,
+      codigo_ibge: Integer);
   end;
 
 implementation
@@ -69,7 +69,7 @@ begin
   Q_Estado.ExecSQL('delete from tab_estado where cod_estado = '+IntToStr(cod_estado));
 end;
 
-procedure TServidor_Principal_Metodos.InserirEstado(cod_pais: Integer; nome_estado : String; sigla_estado : String;
+procedure TServidor_Principal_Metodos.InserirEstado(cod_pais: Integer; nome_estado, sigla_estado,
   codigo_ibge: Integer);
 begin
   Q_Estado.ExecSQL('insert into tab_estado (cod_pais, nome_estado, sigla_estado, codigo_ibge) values (:cod_pais, :nome_estado, :sigla_estado, :codigo_ibge)',

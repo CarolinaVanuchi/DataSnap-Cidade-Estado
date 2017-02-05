@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 05/02/2017 12:03:56
+// 05/02/2017 11:54:32
 //
 
 unit UnitMetodos;
@@ -16,8 +16,8 @@ type
     FDSP_CidadeBeforeGetRecordsCommand: TDBXCommand;
     FExcluirEstadoCommand: TDBXCommand;
     FListarTodosCommand: TDBXCommand;
-    FAlterarEstadoCommand: TDBXCommand;
-    FInserirEstadoCommand: TDBXCommand;
+    FalterarCommand: TDBXCommand;
+    FInserirCommand: TDBXCommand;
   public
     constructor Create(ADBXConnection: TDBXConnection); overload;
     constructor Create(ADBXConnection: TDBXConnection; AInstanceOwner: Boolean); overload;
@@ -26,8 +26,8 @@ type
     procedure DSP_CidadeBeforeGetRecords(Sender: TObject; var OwnerData: OleVariant);
     procedure ExcluirEstado(cod_estado: Integer);
     procedure ListarTodos(tabela: string);
-    procedure AlterarEstado(cod_estado: Integer; cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
-    procedure InserirEstado(cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
+    procedure alterar(cod_estado: Integer; cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
+    procedure Inserir(cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: string);
   end;
 
 implementation
@@ -112,37 +112,37 @@ begin
   FListarTodosCommand.ExecuteUpdate;
 end;
 
-procedure TServidor_Principal_MetodosClient.AlterarEstado(cod_estado: Integer; cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
+procedure TServidor_Principal_MetodosClient.alterar(cod_estado: Integer; cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
 begin
-  if FAlterarEstadoCommand = nil then
+  if FalterarCommand = nil then
   begin
-    FAlterarEstadoCommand := FDBXConnection.CreateCommand;
-    FAlterarEstadoCommand.CommandType := TDBXCommandTypes.DSServerMethod;
-    FAlterarEstadoCommand.Text := 'TServidor_Principal_Metodos.AlterarEstado';
-    FAlterarEstadoCommand.Prepare;
+    FalterarCommand := FDBXConnection.CreateCommand;
+    FalterarCommand.CommandType := TDBXCommandTypes.DSServerMethod;
+    FalterarCommand.Text := 'TServidor_Principal_Metodos.alterar';
+    FalterarCommand.Prepare;
   end;
-  FAlterarEstadoCommand.Parameters[0].Value.SetInt32(cod_estado);
-  FAlterarEstadoCommand.Parameters[1].Value.SetInt32(cod_pais);
-  FAlterarEstadoCommand.Parameters[2].Value.SetWideString(nome_estado);
-  FAlterarEstadoCommand.Parameters[3].Value.SetWideString(sigla_estado);
-  FAlterarEstadoCommand.Parameters[4].Value.SetInt32(codigo_ibge);
-  FAlterarEstadoCommand.ExecuteUpdate;
+  FalterarCommand.Parameters[0].Value.SetInt32(cod_estado);
+  FalterarCommand.Parameters[1].Value.SetInt32(cod_pais);
+  FalterarCommand.Parameters[2].Value.SetWideString(nome_estado);
+  FalterarCommand.Parameters[3].Value.SetWideString(sigla_estado);
+  FalterarCommand.Parameters[4].Value.SetInt32(codigo_ibge);
+  FalterarCommand.ExecuteUpdate;
 end;
 
-procedure TServidor_Principal_MetodosClient.InserirEstado(cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
+procedure TServidor_Principal_MetodosClient.Inserir(cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: string);
 begin
-  if FInserirEstadoCommand = nil then
+  if FInserirCommand = nil then
   begin
-    FInserirEstadoCommand := FDBXConnection.CreateCommand;
-    FInserirEstadoCommand.CommandType := TDBXCommandTypes.DSServerMethod;
-    FInserirEstadoCommand.Text := 'TServidor_Principal_Metodos.InserirEstado';
-    FInserirEstadoCommand.Prepare;
+    FInserirCommand := FDBXConnection.CreateCommand;
+    FInserirCommand.CommandType := TDBXCommandTypes.DSServerMethod;
+    FInserirCommand.Text := 'TServidor_Principal_Metodos.Inserir';
+    FInserirCommand.Prepare;
   end;
-  FInserirEstadoCommand.Parameters[0].Value.SetInt32(cod_pais);
-  FInserirEstadoCommand.Parameters[1].Value.SetWideString(nome_estado);
-  FInserirEstadoCommand.Parameters[2].Value.SetWideString(sigla_estado);
-  FInserirEstadoCommand.Parameters[3].Value.SetInt32(codigo_ibge);
-  FInserirEstadoCommand.ExecuteUpdate;
+  FInserirCommand.Parameters[0].Value.SetInt32(cod_pais);
+  FInserirCommand.Parameters[1].Value.SetWideString(nome_estado);
+  FInserirCommand.Parameters[2].Value.SetWideString(sigla_estado);
+  FInserirCommand.Parameters[3].Value.SetWideString(codigo_ibge);
+  FInserirCommand.ExecuteUpdate;
 end;
 
 
@@ -164,8 +164,8 @@ begin
   FDSP_CidadeBeforeGetRecordsCommand.DisposeOf;
   FExcluirEstadoCommand.DisposeOf;
   FListarTodosCommand.DisposeOf;
-  FAlterarEstadoCommand.DisposeOf;
-  FInserirEstadoCommand.DisposeOf;
+  FalterarCommand.DisposeOf;
+  FInserirCommand.DisposeOf;
   inherited;
 end;
 

@@ -27,7 +27,7 @@ type
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     Panel3: TPanel;
-    edtPesquisa: TEdit;
+    edtPesquisa: TDBEdit;
     Label1: TLabel;
     Button5: TButton;
     ActPesquisa: TAction;
@@ -115,8 +115,9 @@ end;
 
 procedure TCad_Estado.ActAlterarExecute(Sender: TObject);
 begin
+  DS_Estado.Edit;
   CDS_Estado.Edit;
-  PageControl1.TabIndex := 0;
+  HabilitarEdicao;
 end;
 
 procedure TCad_Estado.ActExcluirExecute(Sender: TObject);
@@ -141,7 +142,7 @@ end;
 procedure TCad_Estado.ActIncluirExecute(Sender: TObject);
 begin
   CDS_Estado.Append;
-  PageControl1.TabIndex := 0;
+  HabilitarEdicao;
 end;
 
 procedure TCad_Estado.ActPesquisaExecute(Sender: TObject);
@@ -162,17 +163,16 @@ begin
  try
   if not(CDS_Estadocod_estado.AsInteger > 0) then
     begin
-      conexao.InserirEstado(CDS_Estadocod_pais.AsInteger, CDS_Estadonome_estado.AsString, CDS_Estadosigla_estado.AsString, CDS_Estadocodigo_ibge.AsInteger);
+      conexao.InserirEstado(CDS_Estadocod_pais.AsInteger, CDS_Estadonome_estado.AsString, CDS_Estadosigla_estado.AsString, CDS_Estadocodigo_ibge.AsString);
     end
   else
     begin
       conexao.alterarEstado(CDS_Estadocod_estado.AsInteger,
-      CDS_Estadocod_pais.AsInteger, CDS_Estadonome_estado.AsString, CDS_Estadosigla_estado.AsString, CDS_Estadocodigo_ibge.AsInteger);
+      CDS_Estadocod_pais.AsInteger, CDS_Estadonome_estado.AsString, CDS_Estadosigla_estado.AsString, CDS_Estadocodigo_ibge.AsString);
     end;
  finally
    FreeAndNil(conexao);
    BuscarTodos;
-   PageControl1.TabIndex := 1;
  end;
 end;
 
@@ -194,7 +194,6 @@ procedure TCad_Estado.DS_EstadoDataChange(Sender: TObject; Field: TField);
 begin
     ActAlterar.Enabled := not(CDS_Estado.IsEmpty);
     ActExcluir.Enabled := not(CDS_Estado.IsEmpty);
-    HabilitarEdicao;
 end;
 
 procedure TCad_Estado.HabilitarEdicao;

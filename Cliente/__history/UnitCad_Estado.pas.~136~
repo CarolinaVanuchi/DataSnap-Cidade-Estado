@@ -27,7 +27,7 @@ type
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     Panel3: TPanel;
-    edtPesquisa: TEdit;
+    edtPesquisa: TDBEdit;
     Label1: TLabel;
     Button5: TButton;
     ActPesquisa: TAction;
@@ -115,8 +115,8 @@ end;
 
 procedure TCad_Estado.ActAlterarExecute(Sender: TObject);
 begin
+  DS_Estado.Edit;
   CDS_Estado.Edit;
-  PageControl1.TabIndex := 0;
 end;
 
 procedure TCad_Estado.ActExcluirExecute(Sender: TObject);
@@ -141,7 +141,6 @@ end;
 procedure TCad_Estado.ActIncluirExecute(Sender: TObject);
 begin
   CDS_Estado.Append;
-  PageControl1.TabIndex := 0;
 end;
 
 procedure TCad_Estado.ActPesquisaExecute(Sender: TObject);
