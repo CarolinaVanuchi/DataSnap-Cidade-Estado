@@ -78,11 +78,21 @@ object Cad_Estado: TCad_Estado
         Left = 0
         Top = 135
         Width = 105
-        Height = 41
+        Height = 45
         Action = ActSalvar
         Align = alTop
         Style = bsCommandLink
         TabOrder = 4
+      end
+      object Button7: TButton
+        Left = 0
+        Top = 180
+        Width = 105
+        Height = 45
+        Action = ActCancela
+        Align = alTop
+        Style = bsCommandLink
+        TabOrder = 5
       end
     end
     object PageControl1: TPageControl
@@ -227,6 +237,7 @@ object Cad_Estado: TCad_Estado
           Height = 292
           Align = alClient
           DataSource = DS_Estado
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 1
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
@@ -238,8 +249,8 @@ object Cad_Estado: TCad_Estado
     end
   end
   object ActiEstado: TActionList
-    Left = 32
-    Top = 200
+    Left = 40
+    Top = 264
     object ActIncluir: TAction
       Caption = 'Incluir'
       OnExecute = ActIncluirExecute
@@ -262,7 +273,12 @@ object Cad_Estado: TCad_Estado
     end
     object ActSalvar: TAction
       Caption = 'Salvar'
+      Enabled = False
       OnExecute = ActSalvarExecute
+    end
+    object ActCancela: TAction
+      Caption = 'Cancelar'
+      OnExecute = ActCancelaExecute
     end
   end
   object CDS_Estado: TClientDataSet

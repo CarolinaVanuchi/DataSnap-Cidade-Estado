@@ -13,6 +13,8 @@ object Cad_Cidade: TCad_Cidade
   KeyPreview = True
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnClose = FormClose
+  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   PixelsPerInch = 96
   TextHeight = 13
@@ -24,8 +26,6 @@ object Cad_Cidade: TCad_Cidade
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 672
-    ExplicitHeight = 301
     object Panel2: TPanel
       Left = 0
       Top = 0
@@ -59,7 +59,7 @@ object Cad_Cidade: TCad_Cidade
         Top = 90
         Width = 105
         Height = 45
-        Action = ActIncluir
+        Action = ActExcluir
         Align = alTop
         Style = bsCommandLink
         TabOrder = 2
@@ -84,20 +84,27 @@ object Cad_Cidade: TCad_Cidade
         Style = bsCommandLink
         TabOrder = 4
       end
+      object Button7: TButton
+        Left = 0
+        Top = 180
+        Width = 105
+        Height = 45
+        Action = ActCancela
+        Align = alTop
+        Style = bsCommandLink
+        TabOrder = 5
+      end
     end
     object PageControl1: TPageControl
       Left = 105
       Top = 0
       Width = 596
       Height = 369
-      ActivePage = TabSheet1
+      ActivePage = TabSheet2
       Align = alClient
       TabOrder = 1
-      ExplicitWidth = 592
       object TabSheet1: TTabSheet
         Caption = 'Dados'
-        ExplicitLeft = 6
-        ExplicitTop = 28
         object Label2: TLabel
           Left = 3
           Top = 17
@@ -133,48 +140,62 @@ object Cad_Cidade: TCad_Cidade
           Height = 13
           Caption = 'C'#243'digo Localidade ANP:'
         end
-        object edtCodigo: TEdit
+        object edtCodigo: TDBEdit
           Left = 3
           Top = 36
           Width = 121
           Height = 21
           Color = clInactiveCaption
+          DataField = 'cod_cidade'
+          DataSource = DS_Cidade
           Enabled = False
           TabOrder = 0
         end
-        object edtEstado: TEdit
+        object edtEstado: TDBEdit
           Left = 152
           Top = 36
           Width = 121
           Height = 21
+          DataField = 'cod_estado'
+          DataSource = DS_Cidade
+          Enabled = False
           TabOrder = 1
         end
-        object edtIBGE: TEdit
+        object edtIBGE: TDBEdit
           Left = 304
           Top = 35
           Width = 121
           Height = 21
+          DataField = 'cod_cidade_ibge'
+          DataSource = DS_Cidade
+          Enabled = False
           TabOrder = 2
         end
-        object edtLocalidade: TEdit
+        object edtLocalidade: TDBEdit
           Left = 456
           Top = 36
           Width = 121
           Height = 21
+          DataField = 'codigo_localidade_anp'
+          DataSource = DS_Cidade
+          Enabled = False
           TabOrder = 3
         end
-        object edtNome: TEdit
+        object edtNome: TDBEdit
           Left = 3
           Top = 87
           Width = 574
           Height = 21
+          CharCase = ecUpperCase
+          DataField = 'nome_cidade'
+          DataSource = DS_Cidade
+          Enabled = False
           TabOrder = 4
         end
       end
       object TabSheet2: TTabSheet
         Caption = 'Lista'
         ImageIndex = 1
-        ExplicitWidth = 584
         object Panel3: TPanel
           Left = 0
           Top = 0
@@ -183,19 +204,19 @@ object Cad_Cidade: TCad_Cidade
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 584
           object Label1: TLabel
             Left = 8
             Top = 1
-            Width = 46
+            Width = 95
             Height = 13
-            Caption = 'Pesquisa:'
+            Caption = 'Pesquisa por Nome:'
           end
           object edtPesquisa: TEdit
             Left = 8
             Top = 15
             Width = 399
             Height = 21
+            CharCase = ecUpperCase
             TabOrder = 0
           end
           object Button5: TButton
@@ -214,6 +235,8 @@ object Cad_Cidade: TCad_Cidade
           Width = 588
           Height = 292
           Align = alClient
+          DataSource = DS_Cidade
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 1
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
@@ -229,21 +252,64 @@ object Cad_Cidade: TCad_Cidade
     Top = 240
     object ActIncluir: TAction
       Caption = 'Incluir'
+      OnExecute = ActIncluirExecute
     end
     object ActAlterar: TAction
       Caption = 'Alterar'
+      OnExecute = ActAlterarExecute
     end
     object ActExcluir: TAction
       Caption = 'Excluir'
+      OnExecute = ActExcluirExecute
     end
     object ActSair: TAction
       Caption = 'Sair'
+      OnExecute = ActSairExecute
     end
     object ActPesquisa: TAction
       Caption = 'Pesquisar'
+      OnExecute = ActPesquisaExecute
     end
     object ActSalvar: TAction
       Caption = 'Salvar'
+      Enabled = False
+      OnExecute = ActSalvarExecute
     end
+    object ActCancela: TAction
+      Caption = 'Cancelar'
+      OnExecute = ActCancelaExecute
+    end
+  end
+  object CDS_Cidade: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSP_Cidade'
+    RemoteServer = Cliente_Principal.DSProviderConnection1
+    Left = 557
+    Top = 312
+    object CDS_Cidadecod_cidade: TAutoIncField
+      FieldName = 'cod_cidade'
+      ReadOnly = True
+    end
+    object CDS_Cidadecod_estado: TLongWordField
+      FieldName = 'cod_estado'
+    end
+    object CDS_Cidadenome_cidade: TStringField
+      FieldName = 'nome_cidade'
+      Required = True
+      Size = 30
+    end
+    object CDS_Cidadecod_cidade_ibge: TIntegerField
+      FieldName = 'cod_cidade_ibge'
+    end
+    object CDS_Cidadecodigo_localidade_anp: TIntegerField
+      FieldName = 'codigo_localidade_anp'
+    end
+  end
+  object DS_Cidade: TDataSource
+    DataSet = CDS_Cidade
+    OnDataChange = DS_CidadeDataChange
+    Left = 637
+    Top = 312
   end
 end

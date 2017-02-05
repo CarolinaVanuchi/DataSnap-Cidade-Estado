@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 05/02/2017 12:03:56
+// 05/02/2017 14:45:23
 //
 
 unit UnitMetodos;
@@ -15,9 +15,13 @@ type
     FDSP_EstadoBeforeGetRecordsCommand: TDBXCommand;
     FDSP_CidadeBeforeGetRecordsCommand: TDBXCommand;
     FExcluirEstadoCommand: TDBXCommand;
-    FListarTodosCommand: TDBXCommand;
+    FListarEstadoCommand: TDBXCommand;
     FAlterarEstadoCommand: TDBXCommand;
     FInserirEstadoCommand: TDBXCommand;
+    FAlterarCidadeCommand: TDBXCommand;
+    FExcluirCidadeCommand: TDBXCommand;
+    FInserirCidadeCommand: TDBXCommand;
+    FListarCidadeCommand: TDBXCommand;
   public
     constructor Create(ADBXConnection: TDBXConnection); overload;
     constructor Create(ADBXConnection: TDBXConnection; AInstanceOwner: Boolean); overload;
@@ -25,9 +29,13 @@ type
     procedure DSP_EstadoBeforeGetRecords(Sender: TObject; var OwnerData: OleVariant);
     procedure DSP_CidadeBeforeGetRecords(Sender: TObject; var OwnerData: OleVariant);
     procedure ExcluirEstado(cod_estado: Integer);
-    procedure ListarTodos(tabela: string);
+    procedure ListarEstado;
     procedure AlterarEstado(cod_estado: Integer; cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
     procedure InserirEstado(cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
+    procedure AlterarCidade(cod_cidade: Integer; cod_estado: Integer; nome_cidade: string; codigo_ibge: Integer; codigo_localidade_anp: Integer);
+    procedure ExcluirCidade(cod_cidade: Integer);
+    procedure InserirCidade(cod_estado: Integer; nome_cidade: string; codigo_ibge: Integer; codigo_localidade_anp: Integer);
+    procedure ListarCidade;
   end;
 
 implementation
@@ -99,17 +107,16 @@ begin
   FExcluirEstadoCommand.ExecuteUpdate;
 end;
 
-procedure TServidor_Principal_MetodosClient.ListarTodos(tabela: string);
+procedure TServidor_Principal_MetodosClient.ListarEstado;
 begin
-  if FListarTodosCommand = nil then
+  if FListarEstadoCommand = nil then
   begin
-    FListarTodosCommand := FDBXConnection.CreateCommand;
-    FListarTodosCommand.CommandType := TDBXCommandTypes.DSServerMethod;
-    FListarTodosCommand.Text := 'TServidor_Principal_Metodos.ListarTodos';
-    FListarTodosCommand.Prepare;
+    FListarEstadoCommand := FDBXConnection.CreateCommand;
+    FListarEstadoCommand.CommandType := TDBXCommandTypes.DSServerMethod;
+    FListarEstadoCommand.Text := 'TServidor_Principal_Metodos.ListarEstado';
+    FListarEstadoCommand.Prepare;
   end;
-  FListarTodosCommand.Parameters[0].Value.SetWideString(tabela);
-  FListarTodosCommand.ExecuteUpdate;
+  FListarEstadoCommand.ExecuteUpdate;
 end;
 
 procedure TServidor_Principal_MetodosClient.AlterarEstado(cod_estado: Integer; cod_pais: Integer; nome_estado: string; sigla_estado: string; codigo_ibge: Integer);
@@ -145,6 +152,64 @@ begin
   FInserirEstadoCommand.ExecuteUpdate;
 end;
 
+procedure TServidor_Principal_MetodosClient.AlterarCidade(cod_cidade: Integer; cod_estado: Integer; nome_cidade: string; codigo_ibge: Integer; codigo_localidade_anp: Integer);
+begin
+  if FAlterarCidadeCommand = nil then
+  begin
+    FAlterarCidadeCommand := FDBXConnection.CreateCommand;
+    FAlterarCidadeCommand.CommandType := TDBXCommandTypes.DSServerMethod;
+    FAlterarCidadeCommand.Text := 'TServidor_Principal_Metodos.AlterarCidade';
+    FAlterarCidadeCommand.Prepare;
+  end;
+  FAlterarCidadeCommand.Parameters[0].Value.SetInt32(cod_cidade);
+  FAlterarCidadeCommand.Parameters[1].Value.SetInt32(cod_estado);
+  FAlterarCidadeCommand.Parameters[2].Value.SetWideString(nome_cidade);
+  FAlterarCidadeCommand.Parameters[3].Value.SetInt32(codigo_ibge);
+  FAlterarCidadeCommand.Parameters[4].Value.SetInt32(codigo_localidade_anp);
+  FAlterarCidadeCommand.ExecuteUpdate;
+end;
+
+procedure TServidor_Principal_MetodosClient.ExcluirCidade(cod_cidade: Integer);
+begin
+  if FExcluirCidadeCommand = nil then
+  begin
+    FExcluirCidadeCommand := FDBXConnection.CreateCommand;
+    FExcluirCidadeCommand.CommandType := TDBXCommandTypes.DSServerMethod;
+    FExcluirCidadeCommand.Text := 'TServidor_Principal_Metodos.ExcluirCidade';
+    FExcluirCidadeCommand.Prepare;
+  end;
+  FExcluirCidadeCommand.Parameters[0].Value.SetInt32(cod_cidade);
+  FExcluirCidadeCommand.ExecuteUpdate;
+end;
+
+procedure TServidor_Principal_MetodosClient.InserirCidade(cod_estado: Integer; nome_cidade: string; codigo_ibge: Integer; codigo_localidade_anp: Integer);
+begin
+  if FInserirCidadeCommand = nil then
+  begin
+    FInserirCidadeCommand := FDBXConnection.CreateCommand;
+    FInserirCidadeCommand.CommandType := TDBXCommandTypes.DSServerMethod;
+    FInserirCidadeCommand.Text := 'TServidor_Principal_Metodos.InserirCidade';
+    FInserirCidadeCommand.Prepare;
+  end;
+  FInserirCidadeCommand.Parameters[0].Value.SetInt32(cod_estado);
+  FInserirCidadeCommand.Parameters[1].Value.SetWideString(nome_cidade);
+  FInserirCidadeCommand.Parameters[2].Value.SetInt32(codigo_ibge);
+  FInserirCidadeCommand.Parameters[3].Value.SetInt32(codigo_localidade_anp);
+  FInserirCidadeCommand.ExecuteUpdate;
+end;
+
+procedure TServidor_Principal_MetodosClient.ListarCidade;
+begin
+  if FListarCidadeCommand = nil then
+  begin
+    FListarCidadeCommand := FDBXConnection.CreateCommand;
+    FListarCidadeCommand.CommandType := TDBXCommandTypes.DSServerMethod;
+    FListarCidadeCommand.Text := 'TServidor_Principal_Metodos.ListarCidade';
+    FListarCidadeCommand.Prepare;
+  end;
+  FListarCidadeCommand.ExecuteUpdate;
+end;
+
 
 constructor TServidor_Principal_MetodosClient.Create(ADBXConnection: TDBXConnection);
 begin
@@ -163,9 +228,13 @@ begin
   FDSP_EstadoBeforeGetRecordsCommand.DisposeOf;
   FDSP_CidadeBeforeGetRecordsCommand.DisposeOf;
   FExcluirEstadoCommand.DisposeOf;
-  FListarTodosCommand.DisposeOf;
+  FListarEstadoCommand.DisposeOf;
   FAlterarEstadoCommand.DisposeOf;
   FInserirEstadoCommand.DisposeOf;
+  FAlterarCidadeCommand.DisposeOf;
+  FExcluirCidadeCommand.DisposeOf;
+  FInserirCidadeCommand.DisposeOf;
+  FListarCidadeCommand.DisposeOf;
   inherited;
 end;
 

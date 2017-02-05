@@ -51,6 +51,8 @@ type
     CDS_Estadonome_estado: TStringField;
     CDS_Estadosigla_estado: TStringField;
     CDS_Estadocodigo_ibge: TIntegerField;
+    ActCancela: TAction;
+    Button7: TButton;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -61,10 +63,12 @@ type
     procedure ActAlterarExecute(Sender: TObject);
     procedure ActIncluirExecute(Sender: TObject);
     procedure ActSalvarExecute(Sender: TObject);
+    procedure ActCancelaExecute(Sender: TObject);
   private
     procedure Filtrar;
     procedure BuscarTodos;
     procedure HabilitarEdicao;
+    procedure DesabilitarEdicao;
     { Private declarations }
   public
     { Public declarations }
@@ -81,6 +85,7 @@ implementation
 
 procedure TCad_Estado.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  DesabilitarEdicao;
   CDS_Estado.Close;
 end;
 
@@ -117,6 +122,15 @@ procedure TCad_Estado.ActAlterarExecute(Sender: TObject);
 begin
   CDS_Estado.Edit;
   PageControl1.TabIndex := 0;
+  ActSalvar.Enabled := True;
+  HabilitarEdicao;
+end;
+
+procedure TCad_Estado.ActCancelaExecute(Sender: TObject);
+begin
+  ActSalvar.Enabled := False;
+  PageControl1.TabIndex := 1;
+  DesabilitarEdicao;
 end;
 
 procedure TCad_Estado.ActExcluirExecute(Sender: TObject);
@@ -142,6 +156,8 @@ procedure TCad_Estado.ActIncluirExecute(Sender: TObject);
 begin
   CDS_Estado.Append;
   PageControl1.TabIndex := 0;
+  ActSalvar.Enabled := True;
+  HabilitarEdicao;
 end;
 
 procedure TCad_Estado.ActPesquisaExecute(Sender: TObject);
@@ -173,6 +189,8 @@ begin
    FreeAndNil(conexao);
    BuscarTodos;
    PageControl1.TabIndex := 1;
+   ActSalvar.Enabled := False;
+   DesabilitarEdicao;
  end;
 end;
 
@@ -183,7 +201,7 @@ begin
   conexao := TServidor_Principal_MetodosClient.Create(Cliente_Principal.SQLConnection1.DBXConnection);
   try
     CDS_Estado.Close;
-    conexao.ListarTodos('tab_estado');
+    conexao.ListarEstado;
     CDS_Estado.Open;
     CDS_Estado.Refresh;
   finally
@@ -194,14 +212,21 @@ procedure TCad_Estado.DS_EstadoDataChange(Sender: TObject; Field: TField);
 begin
     ActAlterar.Enabled := not(CDS_Estado.IsEmpty);
     ActExcluir.Enabled := not(CDS_Estado.IsEmpty);
-    HabilitarEdicao;
 end;
 
 procedure TCad_Estado.HabilitarEdicao;
 begin
-  edtPais.Enabled  := (CDS_Estado.State in dsEditModes);
-  edtIBGE.Enabled  := (CDS_Estado.State in dsEditModes);
-  edtSigla.Enabled := (CDS_Estado.State in dsEditModes);
-  edtNome.Enabled  := (CDS_Estado.State in dsEditModes);
+  edtPais.Enabled  := True;
+  edtIBGE.Enabled  := True;
+  edtSigla.Enabled := True;
+  edtNome.Enabled  := True;
+end;
+
+procedure TCad_Estado.DesabilitarEdicao;
+begin
+  edtPais.Enabled  := False;
+  edtIBGE.Enabled  := False;
+  edtSigla.Enabled := False;
+  edtNome.Enabled  := False;
 end;
 end.

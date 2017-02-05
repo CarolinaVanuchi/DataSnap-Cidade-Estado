@@ -28,11 +28,18 @@ type
   public
     { Public declarations }
     procedure ExcluirEstado(cod_estado: Integer);
-    procedure ListarTodos(tabela : String);
+    procedure ListarEstado;
     procedure AlterarEstado(cod_estado, cod_pais: Integer; nome_estado,
       sigla_estado: String; codigo_ibge: Integer);
     procedure InserirEstado(cod_pais: Integer; nome_estado : String; sigla_estado : String;
   codigo_ibge: Integer);
+
+   procedure AlterarCidade(cod_cidade, cod_estado: Integer;
+      nome_cidade: String; codigo_ibge, codigo_localidade_anp: Integer);
+    procedure ExcluirCidade(cod_cidade: Integer);
+    procedure InserirCidade(cod_estado: Integer; nome_cidade: String;
+      codigo_ibge, codigo_localidade_anp: Integer);
+    procedure ListarCidade;
   end;
 
 implementation
@@ -55,11 +62,11 @@ begin
   //
 end;
 
-procedure TServidor_Principal_Metodos.ListarTodos(tabela : String);
+procedure TServidor_Principal_Metodos.ListarEstado;
 begin
   Q_Estado.Close;
   Q_Estado.SQL.Clear;
-  Q_Estado.SQL.Add('select * from '+tabela);
+  Q_Estado.SQL.Add('select * from tab_estado');
   Q_Estado.Open;
   Q_Estado.Refresh;
 end;
@@ -82,5 +89,32 @@ begin
       + ', nome_estado = "'+nome_estado+'", sigla_estado = "'+sigla_estado+'", codigo_ibge = '+IntToStr(codigo_ibge)+' where cod_estado = '+IntToStr(cod_estado));
 end;
 
+procedure TServidor_Principal_Metodos.ListarCidade;
+begin
+  Q_Cidade.Close;
+  Q_Cidade.SQL.Clear;
+  Q_Cidade.SQL.Add('select * from tab_cidade');
+  Q_Cidade.Open;
+  Q_Cidade.Refresh;
+end;
+
+procedure TServidor_Principal_Metodos.ExcluirCidade(cod_cidade : Integer);
+begin
+  Q_Cidade.ExecSQL('delete from tab_cidade where cod_cidade = '+IntToStr(cod_cidade));
+end;
+
+procedure TServidor_Principal_Metodos.InserirCidade(cod_estado: Integer; nome_cidade : String;
+  codigo_ibge: Integer; codigo_localidade_anp : Integer);
+begin
+  Q_Cidade.ExecSQL('insert into tab_cidade (cod_estado, nome_cidade, cod_cidade_ibge, codigo_localidade_anp) values (:cod_estado, :nome_cidade, :cod_cidade_ibge, :codigo_localidade_anp)',
+      [cod_estado, nome_cidade, codigo_ibge, codigo_localidade_anp]);
+end;
+
+procedure TServidor_Principal_Metodos.AlterarCidade(cod_cidade : Integer; cod_estado: Integer; nome_cidade : String;
+  codigo_ibge: Integer; codigo_localidade_anp : Integer);
+begin
+  Q_Cidade.ExecSQL('update tab_cidade set cod_estado = '+IntToStr(cod_estado)
+      + ', nome_cidade = "'+nome_cidade+'", cod_cidade_ibge = "'+IntToStr(codigo_ibge)+'", codigo_localidade_anp = '+IntToStr(codigo_localidade_anp)+' where cod_cidade = '+IntToStr(cod_cidade));
+end;
 end.
 
