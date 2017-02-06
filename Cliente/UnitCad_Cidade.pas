@@ -155,7 +155,6 @@ begin
     Dm.CDS_Cidade.Close;
     conexao.ListarCidade;
     Dm.CDS_Cidade.Open;
-    Dm.CDS_Cidade.Refresh;
   finally
     FreeAndNil(conexao);
   end;

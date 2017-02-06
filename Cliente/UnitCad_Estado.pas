@@ -153,7 +153,6 @@ begin
     Dm.CDS_Estado.Close;
     conexao.ListarEstado;
     Dm.CDS_Estado.Open;
-    Dm.CDS_Estado.Refresh;
   finally
     FreeAndNil(conexao);
   end;

@@ -1,29 +1,18 @@
 inherited Cad_Cidade: TCad_Cidade
   Caption = 'Cidade'
-  ClientHeight = 0
   ClientWidth = 120
   OnClose = FormClose
   OnShow = FormShow
   ExplicitWidth = 136
-  ExplicitHeight = 39
+  ExplicitHeight = 501
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
     Width = 120
-    Height = 0
     ExplicitWidth = 120
     ExplicitHeight = 0
-    inherited Panel2: TPanel
-      Height = 0
-      ExplicitHeight = 0
-      inherited Button2: TButton
-        Top = -41
-        ExplicitTop = -41
-      end
-    end
     inherited pageControl: TPageControl
       Width = 15
-      Height = 0
       ExplicitWidth = 15
       ExplicitHeight = 0
       inherited Dados: TTabSheet

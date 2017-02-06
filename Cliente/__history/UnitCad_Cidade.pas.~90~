@@ -22,6 +22,10 @@ type
     procedure ActPesquisarExecute(Sender: TObject);
     procedure ActInserirExecute(Sender: TObject);
     procedure ActExcluirExecute(Sender: TObject);
+    procedure ActCancelarExecute(Sender: TObject);
+    procedure ActAlterarExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     procedure DesabilitarEdicao;
     procedure HabilitarEdicao;
@@ -56,6 +60,35 @@ begin
     end;
 end;
 
+procedure TCad_Cidade.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  DesabilitarEdicao;
+  Dm.CDS_Cidade.Close;
+  Dm.CDS_Estado.Close;
+end;
+
+procedure TCad_Cidade.FormShow(Sender: TObject);
+begin
+  inherited;
+   Dm.CDS_Cidade.Open;
+   Dm.CDS_Estado.Open;
+end;
+
+procedure TCad_Cidade.ActAlterarExecute(Sender: TObject);
+begin
+  inherited;
+  Dm.CDS_Cidade.Edit;
+  HabilitarEdicao;
+end;
+
+procedure TCad_Cidade.ActCancelarExecute(Sender: TObject);
+begin
+  inherited;
+  DesabilitarEdicao;
+  BuscarTodos;
+end;
+
 procedure TCad_Cidade.ActExcluirExecute(Sender: TObject);
 var
   conexao : TServidor_Principal_MetodosClient;
@@ -80,7 +113,6 @@ procedure TCad_Cidade.ActInserirExecute(Sender: TObject);
 begin
   inherited;
   Dm.CDS_Cidade.Append;
-  ActSalvar.Enabled := True;
   HabilitarEdicao;
 end;
 
@@ -131,7 +163,7 @@ end;
 
 procedure TCad_Cidade.HabilitarEdicao;
 begin
-  edtCod.Enabled      := True;
+  edtCod.Enabled         := True;
   edtEstado.Enabled      := True;
   edtIBGE.Enabled        := True;
   edtLocalidade.Enabled  := True;
@@ -140,7 +172,7 @@ end;
 
 procedure TCad_Cidade.DesabilitarEdicao;
 begin
-  edtCod.Enabled      := False;
+  edtCod.Enabled         := False;
   edtEstado.Enabled      := False;
   edtIBGE.Enabled        := False;
   edtLocalidade.Enabled  := False;

@@ -11,26 +11,22 @@ inherited Cad_Estado: TCad_Estado
   inherited Panel1: TPanel
     Width = 709
     Height = 433
-    ExplicitWidth = 120
-    ExplicitHeight = 0
+    ExplicitWidth = 709
+    ExplicitHeight = 433
     inherited Panel2: TPanel
       Height = 433
-      ExplicitHeight = 0
+      ExplicitHeight = 433
       inherited Button2: TButton
         Top = 392
-        ExplicitTop = -41
+        ExplicitTop = 392
       end
     end
     inherited pageControl: TPageControl
       Width = 604
       Height = 433
-      ExplicitWidth = 15
-      ExplicitHeight = 0
+      ExplicitWidth = 604
+      ExplicitHeight = 433
       inherited Dados: TTabSheet
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Label3: TLabel [1]
           Left = 168
           Top = 16
@@ -110,10 +106,11 @@ inherited Cad_Estado: TCad_Estado
         end
       end
       inherited tbPesquisa: TTabSheet
-        ExplicitWidth = 7
+        ExplicitWidth = 596
+        ExplicitHeight = 405
         inherited Panel3: TPanel
           Width = 596
-          ExplicitWidth = 7
+          ExplicitWidth = 596
         end
         inherited DBGrid1: TDBGrid
           Width = 596

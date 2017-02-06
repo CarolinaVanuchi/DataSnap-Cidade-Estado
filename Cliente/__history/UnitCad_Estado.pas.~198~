@@ -24,11 +24,12 @@ type
     procedure ActAlterarExecute(Sender: TObject);
     procedure ActCancelarExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ActSalvarExecute(Sender: TObject);
   private
     procedure DesabilitarEdicao;
     procedure HabilitarEdicao;
     procedure BuscarTodos;
-    procedure ActSalvarExecute(Sender: TObject);
     procedure Filtrar;
     { Private declarations }
   public
@@ -59,6 +60,13 @@ begin
     end;
 end;
 
+procedure TCad_Estado.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  DesabilitarEdicao;
+  Dm.CDS_Estado.Close;
+end;
+
 procedure TCad_Estado.FormShow(Sender: TObject);
 begin
   inherited;
@@ -70,15 +78,14 @@ procedure TCad_Estado.ActAlterarExecute(Sender: TObject);
 begin
   inherited;
   Dm.CDS_Estado.Edit;
-  ActSalvar.Enabled := True;
   HabilitarEdicao;
 end;
 
 procedure TCad_Estado.ActCancelarExecute(Sender: TObject);
 begin
   inherited;
-  ActSalvar.Enabled := False;
   DesabilitarEdicao;
+  BuscarTodos;
 end;
 
 procedure TCad_Estado.ActExcluirExecute(Sender: TObject);
@@ -118,23 +125,23 @@ procedure TCad_Estado.ActSalvarExecute(Sender: TObject);
 var
   conexao : TServidor_Principal_MetodosClient;
 begin
- conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
- try
-  if not(Dm.CDS_Estadocod_estado.AsInteger > 0) then
-    begin
-      conexao.InserirEstado(Dm.CDS_Estadocod_pais.AsInteger, Dm.CDS_Estadonome_estado.AsString, Dm.CDS_Estadosigla_estado.AsString, Dm.CDS_Estadocodigo_ibge.AsInteger);
-    end
-  else
-    begin
-      conexao.alterarEstado(Dm.CDS_Estadocod_estado.AsInteger,
-      Dm.CDS_Estadocod_pais.AsInteger, Dm.CDS_Estadonome_estado.AsString, Dm.CDS_Estadosigla_estado.AsString, Dm.CDS_Estadocodigo_ibge.AsInteger);
-    end;
- finally
-   FreeAndNil(conexao);
-   BuscarTodos;
-   ActSalvar.Enabled := False;
-   DesabilitarEdicao;
- end;
+  conexao := TServidor_Principal_MetodosClient.Create(Dm.SQLConnection1.DBXConnection);
+   try
+    if not(Dm.CDS_Estadocod_estado.AsInteger > 0) then
+      begin
+        conexao.InserirEstado(Dm.CDS_Estadocod_pais.AsInteger, Dm.CDS_Estadonome_estado.AsString, Dm.CDS_Estadosigla_estado.AsString, Dm.CDS_Estadocodigo_ibge.AsInteger);
+      end
+    else
+      begin
+        conexao.alterarEstado(Dm.CDS_Estadocod_estado.AsInteger,
+        Dm.CDS_Estadocod_pais.AsInteger, Dm.CDS_Estadonome_estado.AsString, Dm.CDS_Estadosigla_estado.AsString, Dm.CDS_Estadocodigo_ibge.AsInteger);
+      end;
+   finally
+     FreeAndNil(conexao);
+     BuscarTodos;
+     DesabilitarEdicao;
+   end;
+  inherited;
 end;
 
 procedure TCad_Estado.BuscarTodos;
